@@ -6,12 +6,21 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite" // NOTE: sqlite does not work with NextAuth.js
+    provider = "postgresql" // NOTE: sqlite does not work with NextAuth.js
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id String @id @default(cuid())
+model Game {
+    id    String  @id @default(cuid())
+    name  String
+    teams Int
+    Teams Teams[]
+}
+
+model Teams {
+    id     Int    @id @default(autoincrement())
+    game   Game   @relation(fields: [gameId], references: [id])
+    gameId String
 }
 
 // Necessary for Next auth
