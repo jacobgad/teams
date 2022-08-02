@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { trpc } from '../../utils/trpc';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
+import { teamOptions } from '../../utils/teams';
 
 const Game: NextPage = () => {
 	const router = useRouter();
@@ -117,6 +118,19 @@ const Game: NextPage = () => {
 					className='se m-5 w-3/4 rounded-lg bg-sky-800 p-4 hover:bg-sky-700'
 				>
 					<p className='break-all'>{`http://localhost:3000/join/${data.id}`}</p>
+				</div>
+
+				<div className='mt-5'>
+					{data.Teams.map((team) => (
+						<div key={team.id} className='mb-5'>
+							<p>Team: {teamOptions[team.id % teamOptions.length]?.name}</p>
+							<ul>
+								{team.members.map((member) => (
+									<li key={member.id}>{member.id}</li>
+								))}
+							</ul>
+						</div>
+					))}
 				</div>
 			</main>
 		</>

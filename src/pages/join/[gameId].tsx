@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
 import useLocalStorage from '../../components/hooks/useLocalStorage';
 import { teamOptions } from '../../utils/teams';
 import { trpc } from '../../utils/trpc';
@@ -11,11 +10,8 @@ const Join: NextPage = () => {
 	const { gameId } = router.query;
 	const [memberId, setMemberId] = useLocalStorage<string | null>('memberId', null);
 	const { data, isLoading, isError, error, refetch, isIdle } = trpc.useQuery(
-		['game.join', { game: gameId as string, memberId }],
+		['game.join', { gameId: gameId as string, memberId }],
 		{
-			onError: (error) => {
-				toast.error(error.message);
-			},
 			onSuccess: (data) => {
 				if (data.memberId !== memberId) setMemberId(data.memberId);
 			},
