@@ -16,7 +16,7 @@ export default function useLocalStorage<T>(key: string, initalValue: T) {
 
 	useEffect(() => {
 		localStorage.setItem(prefix + key, JSON.stringify(value));
-	}, [value]);
+	}, [value, key]);
 
 	const state: [T, React.Dispatch<React.SetStateAction<T>>] = [value, setValue];
 	return state;

@@ -67,10 +67,10 @@ const Game: NextPage = () => {
 					<link rel='icon' href='/favicon.ico' />
 				</Head>
 				<main className='container mx-auto grid max-w-xs justify-items-center py-10'>
-					<h1 className='text-3xl'>Can't Find Game</h1>
+					<h1 className='text-3xl'>{`Can't Find Game`}</h1>
 					<div className='mt-24 grid items-center'>
 						{isError && <p className='text-center'>{error.message}</p>}
-						{isIdle && <p className='text-center'>'Query is Idle</p>}
+						{isIdle && <p className='text-center'>Query is Idle</p>}
 						<div className='flex w-full justify-between'>
 							<button
 								onClick={() => refetch}

@@ -68,10 +68,10 @@ const Join: NextPage = () => {
 					<link rel='icon' href='/favicon.ico' />
 				</Head>
 				<main className='container mx-auto grid max-w-xs justify-items-center py-10'>
-					<h1 className='text-3xl'>Can't Find Game</h1>
+					<h1 className='text-3xl'>{`Can't Find Game`}</h1>
 					<div className='mt-24 grid items-center'>
 						{isError && <p className='text-center'>{error.message}</p>}
-						{isIdle && <p className='text-center'>'Query is Idle</p>}
+						{isIdle && <p className='text-center'>Query is Idle</p>}
 						<button
 							onClick={() => refetch}
 							className='mt-4 rounded-lg bg-sky-600 px-5 py-2 shadow shadow-sky-600 hover:bg-sky-700 disabled:bg-sky-900 disabled:text-gray-400 disabled:shadow-none'
