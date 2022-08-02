@@ -1,9 +1,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { trpc } from '../../utils/trpc';
+import { trpc } from '../../../utils/trpc';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
-import { teamOptions } from '../../utils/teams';
+import { teamOptions } from '../../../utils/teams';
+
+function getJoinUrl() {
+	return document.URL + '/join';
+}
 
 const Game: NextPage = () => {
 	const router = useRouter();
@@ -114,10 +118,10 @@ const Game: NextPage = () => {
 				</div>
 				<h2 className='text-xl'>Copy Invite</h2>
 				<div
-					onClick={() => handleLinkClick(`http://localhost:3000/join/${data.id}`)}
+					onClick={() => handleLinkClick(getJoinUrl())}
 					className='se m-5 w-3/4 rounded-lg bg-sky-800 p-4 hover:bg-sky-700'
 				>
-					<p className='break-all'>{`http://localhost:3000/join/${data.id}`}</p>
+					<p className='break-all'>{getJoinUrl()}</p>
 				</div>
 
 				<div className='mt-5'>

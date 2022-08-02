@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import useLocalStorage from '../../components/hooks/useLocalStorage';
-import { teamOptions } from '../../utils/teams';
-import { trpc } from '../../utils/trpc';
+import useLocalStorage from '../../../components/hooks/useLocalStorage';
+import { teamOptions } from '../../../utils/teams';
+import { trpc } from '../../../utils/trpc';
 
 const Join: NextPage = () => {
 	const router = useRouter();
