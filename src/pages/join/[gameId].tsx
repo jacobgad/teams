@@ -89,11 +89,10 @@ const Join: NextPage = () => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<main
-				className={`container mx-auto grid h-full w-full max-w-xs place-items-center py-10 ${team?.color}`}
-			>
-				<h1 className='text-5xl'>Team {team?.name}</h1>
-				<p>Member ID: {memberId}</p>
+			<main className={`h-[100vh] ${team?.color}`}>
+				<main className='${team?.color} grid h-1/3 items-center'>
+					<h1 className='text-center text-5xl'>Team {team?.name}</h1>
+				</main>
 			</main>
 		</>
 	);
