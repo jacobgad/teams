@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { teamOptions } from '../utils/teams';
+import TextField from '../components/ui/TextField';
 
 const schema = z.object({
 	name: z.string().min(4),
@@ -49,30 +50,20 @@ const Home: NextPage = () => {
 				<h1 className='mb-10 text-center text-3xl'>New Game</h1>
 
 				<form onSubmit={handleSubmit(onSubmit)} className='grid justify-items-center gap-4'>
-					<div className='w-full'>
-						<label htmlFor='name' className='mb-2 block w-full'>
-							Name of Game
-						</label>
-						<input
-							{...register('name')}
-							type='text'
-							id='name'
-							className='w-full rounded-lg text-black'
-						/>
-						<span className='text-sm text-red-500'>{errors.name?.message}</span>
-					</div>
-					<div className='w-full'>
-						<label htmlFor='teams' className='mb-2 block w-full'>
-							Number of Teams
-						</label>
-						<input
-							{...register('teamCount', { valueAsNumber: true })}
-							type='number'
-							id='teams'
-							className='w-full rounded-lg text-black'
-						/>
-						<span className='text-sm text-red-500'>{errors.teamCount?.message}</span>
-					</div>
+					<TextField
+						id='name'
+						type='text'
+						label='Name of Game'
+						{...register('name')}
+						error={errors.name?.message}
+					/>
+					<TextField
+						id='teamCount'
+						type='number'
+						label='Number of Teams'
+						{...register('teamCount', { valueAsNumber: true })}
+						error={errors.teamCount?.message}
+					/>
 					<button
 						type='submit'
 						disabled={!isValid || isLoading}
