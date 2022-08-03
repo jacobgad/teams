@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { teamOptions } from '../utils/teams';
-import TextField from '../components/ui/TextField';
+import TextField from '@/ui/TextField';
 
 const schema = z.object({
 	name: z.string().min(4),

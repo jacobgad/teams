@@ -15,7 +15,11 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["components/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
