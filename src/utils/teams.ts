@@ -1,4 +1,7 @@
 export const teamOptions = [
+	{ name: 'Slate', color: 'bg-slate-500' },
+	{ name: 'Zinc', color: 'bg-zinc-500' },
+	{ name: 'Stone', color: 'bg-stone-500' },
 	{ name: 'Red', color: 'bg-red-500' },
 	{ name: 'Orange', color: 'bg-orange-500' },
 	{ name: 'Amber', color: 'bg-amber-500' },
