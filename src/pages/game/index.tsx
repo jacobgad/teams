@@ -8,7 +8,7 @@ import { Spinner } from 'components/ui/Loading';
 import toast from 'react-hot-toast';
 import { trpc } from 'utils/trpc';
 import { PlusIcon } from '@heroicons/react/solid';
-import { format } from 'date-fns';
+import DeleteGameBtn from 'components/ui/DeleteGameBtn';
 
 const Games: NextPage = () => {
 	const { data: session, status } = useSession();
@@ -52,17 +52,18 @@ const Games: NextPage = () => {
 
 				<div className='grid gap-4'>
 					{data?.map((game) => (
-						<button
-							key={game.id}
-							onClick={() => router.push(`/game/${game.id}`)}
-							className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition ease-out hover:scale-105 hover:bg-gray-600 active:scale-100'
-						>
-							<p>{game.name}</p>
-							<div className='flex gap-4'>
-								<p>{game.teamCount} Teams</p>
-								<p>{format(game.createdAt, 'dd/MM/yy')}</p>
-							</div>
-						</button>
+						<div key={game.id} className='flex gap-4'>
+							<button
+								onClick={() => router.push(`/game/${game.id}`)}
+								className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition ease-out hover:scale-105 hover:bg-gray-600 active:scale-100'
+							>
+								<p>{game.name}</p>
+								<div className='flex gap-4'>
+									<p>{game.teamCount} Teams</p>
+								</div>
+							</button>
+							<DeleteGameBtn gameId={game.id} />
+						</div>
 					))}
 				</div>
 			</main>

@@ -17,6 +17,30 @@ export const gameRouter = createProtectedRouter()
 		},
 	})
 
+	.mutation('delete', {
+		input: z.object({
+			gameId: z.string().cuid(),
+		}),
+		async resolve({ ctx, input }) {
+			const game = await ctx.prisma.game.findUnique({ where: { id: input.gameId } });
+			if (!game) throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
+			if (game.userId !== ctx.session.user.id)
+				return new TRPCError({
+					code: 'UNAUTHORIZED',
+					message: 'You are not the owner of this game',
+				});
+			const deleteTeams = ctx.prisma.team.deleteMany({
+				where: { gameId: input.gameId },
+			});
+			const deleteGame = ctx.prisma.game.delete({
+				where: { id: input.gameId },
+				include: { Teams: true },
+			});
+			const transaction = await ctx.prisma.$transaction([deleteTeams, deleteGame]);
+			return transaction[1];
+		},
+	})
+
 	.query('get', {
 		input: z.object({ gameId: z.string().cuid() }),
 		async resolve({ ctx, input }) {
