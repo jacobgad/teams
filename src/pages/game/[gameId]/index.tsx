@@ -25,7 +25,7 @@ const Game: NextPage = () => {
 	async function handleLinkClick(link: string) {
 		try {
 			await navigator.clipboard.writeText(link);
-			toast.success('Invite Coppied');
+			toast.success('Invite Copied');
 		} catch (e) {
 			toast.error('Error copping invite');
 		}
@@ -42,7 +42,7 @@ const Game: NextPage = () => {
 			<NavBar />
 			<main className='container mx-auto max-w-sm p-5'>
 				{isLoading && (
-					<div className='m-5 flex justify-center'>
+					<div className='mb-5 flex h-[60px] place-content-center'>
 						<Spinner />
 					</div>
 				)}
@@ -78,6 +78,7 @@ const Game: NextPage = () => {
 						<div
 							key={team.id}
 							className={` grid justify-items-center gap-2 overflow-hidden rounded-lg pb-2 shadow-md shadow-black 
+							transition ease-in-out hover:-translate-y-1 
 							${teamOptions[team.id % teamOptions.length]?.color}`}
 						>
 							<div

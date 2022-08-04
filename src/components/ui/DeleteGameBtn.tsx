@@ -23,8 +23,9 @@ export default function DeleteGameBtn({ gameId }: Props) {
 	return (
 		<button
 			onClick={() => mutate({ gameId })}
+			disabled={isLoading}
 			className='aspect-square h-full rounded-full bg-red-500 p-4 text-white 
-    hover:scale-105 hover:bg-red-600 active:scale-95 active:bg-red-600'
+    hover:scale-105 hover:bg-red-600 active:scale-95 active:bg-red-600 disabled:scale-100 disabled:bg-gray-800'
 		>
 			{isLoading ? <RefreshIcon className='animate-spin' /> : <TrashIcon />}
 		</button>
