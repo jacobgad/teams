@@ -77,11 +77,16 @@ const Game: NextPage = () => {
 					{data?.Teams.map((team) => (
 						<div
 							key={team.id}
-							className={` grid justify-items-center rounded-lg pb-2 ${
-								teamOptions[team.id % teamOptions.length]?.color
-							}`}
+							className={` grid justify-items-center gap-2 overflow-hidden rounded-lg pb-2 shadow-md shadow-black 
+							${teamOptions[team.id % teamOptions.length]?.color}`}
 						>
-							<p className='p-2 text-lg'>{teamOptions[team.id % teamOptions.length]?.name}</p>
+							<div
+								className={`flex w-full items-center justify-between px-3 py-1 text-lg 
+								${teamOptions[team.id % teamOptions.length]?.activeColor}`}
+							>
+								<p>{teamOptions[team.id % teamOptions.length]?.name}</p>
+								<p>{team.members.length}</p>
+							</div>
 							<ul className='grid gap-1'>
 								{team.members.map((member) => (
 									<li key={member.id}>{member.id}</li>
