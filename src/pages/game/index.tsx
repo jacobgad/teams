@@ -1,0 +1,78 @@
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
+import NavBar from 'components/ui/NavBar';
+import { Spinner } from 'components/ui/Loading';
+import toast from 'react-hot-toast';
+import { trpc } from 'utils/trpc';
+import { PlusIcon } from '@heroicons/react/solid';
+import { format } from 'date-fns';
+
+const Games: NextPage = () => {
+	const { data: session, status } = useSession();
+	const router = useRouter();
+	const { data, isLoading } = trpc.useQuery(['game.getAll'], {
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
+
+	useEffect(() => {
+		if (status === 'unauthenticated') router.push('/login');
+	}, [status, router]);
+
+	if (!session) return null;
+
+	return (
+		<>
+			<Head>
+				<title>Teams</title>
+				<meta name='description' content='Split into teams fast' />
+				<link rel='icon' href='/favicon.ico' />
+			</Head>
+
+			<NavBar />
+
+			{isLoading && (
+				<main className='container mx-auto grid max-w-xs justify-items-center py-10'>
+					<h1 className='text-3xl'>Finding your team</h1>
+					<div className='mt-24 grid items-center'>
+						<Spinner />
+					</div>
+				</main>
+			)}
+
+			<main className='container mx-auto max-w-lg py-10 px-4'>
+				<div className='mb-10 flex justify-between'>
+					<h1 className='text-center text-3xl'>My Games</h1>
+					<button
+						onClick={() => router.push('/game/new')}
+						className='flex items-center gap-2 rounded bg-sky-600 px-4 py-2 hover:bg-sky-700'
+					>
+						<PlusIcon className='h-5 w-5' /> New Game
+					</button>
+				</div>
+
+				<div className='grid gap-4'>
+					{data?.map((game) => (
+						<button
+							key={game.id}
+							onClick={() => router.push(`/game/${game.id}`)}
+							className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition hover:scale-105 hover:bg-gray-800'
+						>
+							<p>{game.name}</p>
+							<div className='flex gap-4'>
+								<p>{game.teamCount} Teams</p>
+								<p>{format(game.createdAt, 'dd/MM/yy')}</p>
+							</div>
+						</button>
+					))}
+				</div>
+			</main>
+		</>
+	);
+};
+
+export default Games;

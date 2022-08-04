@@ -5,12 +5,13 @@ import { useSession, signIn } from 'next-auth/react';
 import { useEffect } from 'react';
 
 const Login: NextPage = () => {
-	const { data: session } = useSession();
+	const session = useSession();
 	const router = useRouter();
 
 	useEffect(() => {
+		if (session.status === 'loading')
 		if (session) router.push('/');
-	}, [session]);
+	}, [session, router]);
 
 	return (
 		<>

@@ -2,15 +2,15 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { trpc } from '../../utils/trpc';
+import { trpc } from 'utils/trpc';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
-import { teamOptions } from '../../utils/teams';
-import TextField from '@/ui/TextField';
+import { teamOptions } from 'utils/teams';
+import TextField from 'components/ui/TextField';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
-import NavBar from '@/ui/NavBar';
+import NavBar from 'components/ui/NavBar';
 
 const schema = z.object({
 	name: z.string().min(4),
@@ -19,7 +19,7 @@ const schema = z.object({
 
 type Schema = z.infer<typeof schema>;
 
-const Home: NextPage = () => {
+const NewGame: NextPage = () => {
 	const { data: session } = useSession();
 	const router = useRouter();
 	const {
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
 
 	useEffect(() => {
 		if (!session) router.push('/login');
-	}, []);
+	}, [session, router]);
 
 	if (!session) return null;
 
@@ -88,4 +88,4 @@ const Home: NextPage = () => {
 	);
 };
 
-export default Home;
+export default NewGame;

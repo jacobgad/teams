@@ -16,10 +16,7 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["components/*"]
-    }
+    "baseUrl": "./src"
   },
   "include": [
     "next-env.d.ts",

@@ -1,17 +1,17 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import useLocalStorage from '../../../components/hooks/useLocalStorage';
-import { Spinner } from '../../../components/ui/Loading';
-import { teamOptions } from '../../../utils/teams';
-import { trpc } from '../../../utils/trpc';
+import useLocalStorage from 'components/hooks/useLocalStorage';
+import { Spinner } from 'components/ui/Loading';
+import { teamOptions } from 'utils/teams';
+import { trpc } from 'utils/trpc';
 
 const Join: NextPage = () => {
 	const router = useRouter();
 	const { gameId } = router.query;
 	const [memberId, setMemberId] = useLocalStorage<string | null>('memberId', null);
 	const { data, isLoading, isError, error, refetch, isIdle } = trpc.useQuery(
-		['game.join', { gameId: gameId as string, memberId }],
+		['member.joinGame', { gameId: gameId as string, memberId }],
 		{
 			onSuccess: (data) => {
 				if (data.memberId !== memberId) setMemberId(data.memberId);

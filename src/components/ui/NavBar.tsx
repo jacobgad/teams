@@ -1,11 +1,18 @@
+import { HomeIcon } from '@heroicons/react/solid';
 import { signOut, signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function NavBar() {
 	const { data: session } = useSession();
 
 	return (
 		<nav className='flex items-center justify-between bg-slate-800 py-2 px-4'>
+			<Link href={'/'}>
+				<button className='w-8 transition ease-in-out hover:scale-110 hover:text-sky-400 active:scale-95'>
+					<HomeIcon />
+				</button>
+			</Link>
 			{session && (
 				<div className='flex items-center gap-4'>
 					<Image
@@ -13,6 +20,7 @@ export default function NavBar() {
 						width='40px'
 						height='40px'
 						className='rounded-full'
+						alt='user image'
 					/>
 					<p>{session.user?.name}</p>
 				</div>

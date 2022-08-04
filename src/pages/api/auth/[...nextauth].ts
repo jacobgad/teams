@@ -23,13 +23,6 @@ export const authOptions: NextAuthOptions = {
 			clientId: env.GOOGLE_CLIENT_ID,
 			clientSecret: env.GOOGLE_CLIENT_SECRET,
 			checks: 'none',
-			authorization: {
-				params: {
-					prompt: 'consent',
-					access_type: 'offline',
-					response_type: 'code',
-				},
-			},
 		}),
 	],
 };
