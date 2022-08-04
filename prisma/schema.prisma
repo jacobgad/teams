@@ -14,9 +14,11 @@ model Game {
     id        String   @id @default(cuid())
     name      String
     teamCount Int
+    owner     User     @relation(fields: [userId], references: [id])
     Teams     Team[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    userId    String
 }
 
 model Team {
@@ -34,7 +36,6 @@ model Member {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
-
 
 // Necessary for Next auth
 model Account {
@@ -71,6 +72,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Game          Game[]
 }
 
 model VerificationToken {
