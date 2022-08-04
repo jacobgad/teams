@@ -18,6 +18,7 @@ const Game: NextPage = () => {
 	const router = useRouter();
 	const { gameId } = router.query;
 	const { data, isLoading } = trpc.useQuery(['game.get', { gameId: paramToString(gameId) }], {
+		refetchInterval: 4000,
 		onError: (error) => toast.error(error.message),
 	});
 
