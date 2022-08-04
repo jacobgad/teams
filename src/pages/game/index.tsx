@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import NavBar from 'components/ui/NavBar';
 import { Spinner } from 'components/ui/Loading';
 import toast from 'react-hot-toast';
@@ -16,6 +16,11 @@ const Games: NextPage = () => {
 	const { data, isLoading } = trpc.useQuery(['game.getAll'], {
 		onError: (error) => toast.error(error.message),
 	});
+
+	const sortedData = useMemo(() => {
+		if (!data) return [];
+		return data.sort((pre, cur) => cur.createdAt.getTime() - pre.createdAt.getTime());
+	}, [data]);
 
 	useEffect(() => {
 		if (status === 'unauthenticated') router.push('/login');
@@ -51,7 +56,7 @@ const Games: NextPage = () => {
 				)}
 
 				<div className='grid gap-4'>
-					{data?.map((game) => (
+					{sortedData.map((game) => (
 						<div key={game.id} className='flex gap-4'>
 							<button
 								onClick={() => router.push(`/game/${game.id}`)}

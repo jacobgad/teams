@@ -25,7 +25,7 @@ const Login: NextPage = () => {
 					<h1 className='text-center text-3xl'>Start using Teams</h1>
 					<button
 						onClick={() => signIn('google')}
-						className='flex w-full items-center justify-between gap-4 rounded-lg bg-white py-2 px-6 font-semibold text-sky-900 shadow-md shadow-sky-900 hover:scale-105 active:scale-95'
+						className='flex w-full items-center justify-between gap-4 rounded-lg bg-white py-2 px-6 font-semibold text-sky-900 shadow-md shadow-sky-900 transition ease-in-out hover:scale-105 active:scale-95'
 					>
 						<svg className='h-5 w-5'>
 							<g clipPath='url(#p.0)'>
