@@ -57,8 +57,8 @@ const NewGame: NextPage = () => {
 			</Head>
 
 			<NavBar />
-			<main className='container mx-auto max-w-xs py-10'>
-				<h1 className='mb-10 text-center text-3xl'>New Game</h1>
+			<main className='container mx-auto max-w-xs p-5'>
+				<h1 className='mb-8 text-center text-3xl'>New Game</h1>
 
 				<form onSubmit={handleSubmit(onSubmit)} className='grid justify-items-center gap-4'>
 					<TextField

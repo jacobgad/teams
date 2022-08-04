@@ -33,7 +33,7 @@ const Games: NextPage = () => {
 
 			<NavBar />
 
-			<main className='container mx-auto max-w-lg py-10 px-4'>
+			<main className='container mx-auto max-w-lg p-8'>
 				<div className='mb-10 flex justify-between'>
 					<h1 className='text-center text-3xl'>My Games</h1>
 					<button

@@ -3,6 +3,11 @@ import Head from 'next/head';
 import NavBar from 'components/ui/NavBar';
 import Link from 'next/link';
 
+interface ItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	label: string;
+	href: string;
+}
+
 const Home: NextPage = () => {
 	return (
 		<>
@@ -13,8 +18,8 @@ const Home: NextPage = () => {
 			</Head>
 
 			<NavBar />
-			<main className='container mx-auto max-w-2xl py-10 px-8'>
-				<h1 className='mb-10 text-center text-3xl'>Teams</h1>
+			<main className='container mx-auto max-w-2xl py-5 px-8'>
+				<h1 className='mb-5 text-center text-3xl'>Teams</h1>
 				<div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
 					<Item label='My Games' href='/game' />
 					<Item label='New Game' href='/game/new' />
@@ -24,11 +29,6 @@ const Home: NextPage = () => {
 		</>
 	);
 };
-
-interface ItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	label: string;
-	href: string;
-}
 
 function Item({ label, href, ...rest }: ItemProps) {
 	return (
