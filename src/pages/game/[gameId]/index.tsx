@@ -40,29 +40,39 @@ const Game: NextPage = () => {
 
 			<NavBar />
 			<main className='container mx-auto max-w-sm p-5'>
-				<h1 className='mb-10 text-center text-3xl'>{data?.name}</h1>
+				{isLoading && (
+					<div className='m-5 flex justify-center'>
+						<Spinner />
+					</div>
+				)}
+				{data && (
+					<div className='mb-5 w-full '>
+						<p className='flex justify-between'>
+							<div>
+								<p className=''>Game</p>
+								<h1 className='text-center text-3xl'>{data?.name}</h1>
+							</div>
+							<div>
+								<p>Teams</p>
+								<p className='text-center text-3xl'>{data?.teamCount}</p>
+							</div>
+						</p>
+					</div>
+				)}
 
-				<div className='mb-10 w-full px-10'>
-					<p className='flex justify-between'>
-						<span>Teams: </span>
-						<span>{data?.teamCount}</span>
-					</p>
-				</div>
-
-				<div className='flex flex-col items-center'>
-					<h2 className='text-xl'>Copy Invite</h2>
+				<div className='flex items-center'>
+					<h2 className='w-1/4 text-xl'>Invite</h2>
 					<button
 						onClick={() => handleLinkClick(getJoinUrl(gameId as string))}
-						className='m-5 flex w-3/4 items-center gap-4 rounded-lg bg-sky-800 px-4 py-1 transition-all ease-out
+						className='my-5 flex w-3/4 items-center gap-4 rounded-lg bg-sky-800 px-4 transition-all ease-out
 					hover:scale-105 hover:bg-sky-700 active:scale-100'
 					>
 						<p className='overflow-hidden text-ellipsis'>{getJoinUrl(gameId as string)}</p>
-						<ClipboardCopyIcon className='h-10' />
+						<ClipboardCopyIcon className='h-12' />
 					</button>
 				</div>
 
 				<div className='mt-5 grid gap-8'>
-					{isLoading && <Spinner />}
 					{data?.Teams.map((team) => (
 						<div
 							key={team.id}

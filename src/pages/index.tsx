@@ -35,8 +35,8 @@ function Item({ label, href, ...rest }: ItemProps) {
 		<Link href={href}>
 			<button
 				{...rest}
-				className='aspect-video w-full rounded-lg bg-sky-700 shadow-md shadow-black transition ease-in-out 
-				hover:scale-105 active:scale-100 disabled:scale-100 disabled:bg-gray-700 disabled:shadow-none'
+				className='w-full rounded-lg bg-sky-700 p-10 shadow-md shadow-black transition ease-in-out hover:scale-105 
+				active:scale-100 disabled:scale-100 disabled:bg-gray-700 disabled:shadow-none md:aspect-video'
 			>
 				<p className='text-lg'>{label}</p>
 			</button>
