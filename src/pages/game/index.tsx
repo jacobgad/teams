@@ -14,9 +14,7 @@ const Games: NextPage = () => {
 	const { data: session, status } = useSession();
 	const router = useRouter();
 	const { data, isLoading } = trpc.useQuery(['game.getAll'], {
-		onError: (error) => {
-			toast.error(error.message);
-		},
+		onError: (error) => toast.error(error.message),
 	});
 
 	useEffect(() => {
@@ -35,15 +33,6 @@ const Games: NextPage = () => {
 
 			<NavBar />
 
-			{isLoading && (
-				<main className='container mx-auto grid max-w-xs justify-items-center py-10'>
-					<h1 className='text-3xl'>Finding your team</h1>
-					<div className='mt-24 grid items-center'>
-						<Spinner />
-					</div>
-				</main>
-			)}
-
 			<main className='container mx-auto max-w-lg py-10 px-4'>
 				<div className='mb-10 flex justify-between'>
 					<h1 className='text-center text-3xl'>My Games</h1>
@@ -55,12 +44,18 @@ const Games: NextPage = () => {
 					</button>
 				</div>
 
+				{isLoading && (
+					<div className='flex w-full justify-center pt-10'>
+						<Spinner />
+					</div>
+				)}
+
 				<div className='grid gap-4'>
 					{data?.map((game) => (
 						<button
 							key={game.id}
 							onClick={() => router.push(`/game/${game.id}`)}
-							className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition hover:scale-105 hover:bg-gray-800'
+							className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition ease-out hover:scale-105 hover:bg-gray-600 active:scale-100'
 						>
 							<p>{game.name}</p>
 							<div className='flex gap-4'>
