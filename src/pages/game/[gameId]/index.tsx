@@ -19,7 +19,10 @@ const Game: NextPage = () => {
 	const { gameId } = router.query;
 	const { data, isLoading } = trpc.useQuery(['game.get', { gameId: paramToString(gameId) }], {
 		refetchInterval: 4000,
-		onError: (error) => toast.error(error.message),
+		onError: (error) => {
+			toast.error(error.message);
+			if (error.data?.code === 'NOT_FOUND') router.push('/game');
+		},
 	});
 
 	async function handleLinkClick(link: string) {
@@ -47,17 +50,15 @@ const Game: NextPage = () => {
 					</div>
 				)}
 				{data && (
-					<div className='mb-5 w-full '>
-						<p className='flex justify-between'>
-							<div>
-								<p className=''>Game</p>
-								<h1 className='text-center text-3xl'>{data?.name}</h1>
-							</div>
-							<div>
-								<p>Teams</p>
-								<p className='text-center text-3xl'>{data?.teamCount}</p>
-							</div>
-						</p>
+					<div className='mb-5 flex w-full justify-between'>
+						<div>
+							<p>Game</p>
+							<h1 className='text-center text-3xl'>{data?.name}</h1>
+						</div>
+						<div>
+							<p>Teams</p>
+							<p className='text-center text-3xl'>{data?.teamCount}</p>
+						</div>
 					</div>
 				)}
 
