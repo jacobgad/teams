@@ -1,41 +1,21 @@
-import { Duration, sub } from 'date-fns';
+import { sub } from 'date-fns';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from 'server/db/client';
 
 const cleanUp = async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method === 'DELETE') {
-		const duration: Duration = { months: 3 };
+		const date = sub(new Date(Date.now()), { months: 3 });
 
 		const deleteTeams = prisma.team.deleteMany({
-			where: {
-				game: {
-					updatedAt: {
-						lt: sub(new Date(Date.now()), duration),
-					},
-				},
-			},
+			where: { game: { updatedAt: { lt: date } } },
 		});
 
 		const deleteGames = prisma.game.deleteMany({
-			where: {
-				updatedAt: {
-					lt: sub(new Date(Date.now()), duration),
-				},
-			},
+			where: { updatedAt: { lt: date } },
 		});
 
 		const deleteMembers = prisma.member.deleteMany({
-			where: {
-				teams: {
-					every: {
-						game: {
-							createdAt: {
-								lt: sub(new Date(Date.now()), duration),
-							},
-						},
-					},
-				},
-			},
+			where: { teams: { every: { game: { createdAt: { lt: date } } } } },
 		});
 
 		try {
