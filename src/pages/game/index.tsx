@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { trpc } from 'utils/trpc';
 import { PlusIcon } from '@heroicons/react/solid';
 import DeleteGameBtn from 'components/ui/DeleteGameBtn';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Games: NextPage = () => {
 	const { data: session, status } = useSession();
@@ -55,22 +56,46 @@ const Games: NextPage = () => {
 					</div>
 				)}
 
-				<div className='grid gap-4'>
-					{sortedData.map((game) => (
-						<div key={game.id} className='flex gap-4'>
-							<button
-								onClick={() => router.push(`/game/${game.id}`)}
-								className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition ease-out hover:scale-105 hover:bg-gray-600 active:scale-100'
+				<ul className='grid gap-4'>
+					<AnimatePresence>
+						{sortedData.map((game, idx) => (
+							<motion.li
+								key={game.id}
+								custom={idx}
+								variants={{
+									hidden: (idx) => ({
+										opacity: 0,
+										y: -50 * idx,
+									}),
+									visible: (idx) => ({
+										opacity: 1,
+										y: 0,
+										transition: { delay: idx * 0.025 },
+									}),
+									removed: {
+										opacity: 0,
+										scale: 0,
+									},
+								}}
+								initial='hidden'
+								animate='visible'
+								exit='removed'
+								className='flex gap-4'
 							>
-								<p>{game.name}</p>
-								<div className='flex gap-4'>
-									<p>{game.teamCount} Teams</p>
-								</div>
-							</button>
-							<DeleteGameBtn gameId={game.id} />
-						</div>
-					))}
-				</div>
+								<button
+									onClick={() => router.push(`/game/${game.id}`)}
+									className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition ease-out hover:scale-105 hover:bg-gray-600 active:scale-100'
+								>
+									<p>{game.name}</p>
+									<div className='flex gap-4'>
+										<p>{game.teamCount} Teams</p>
+									</div>
+								</button>
+								<DeleteGameBtn gameId={game.id} />
+							</motion.li>
+						))}
+					</AnimatePresence>
+				</ul>
 			</main>
 		</>
 	);
