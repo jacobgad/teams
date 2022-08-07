@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { trpc } from 'utils/trpc';
 import { PlusIcon } from '@heroicons/react/solid';
 import { AnimatePresence, motion } from 'framer-motion';
-import GamesListItem from './GamesListItem';
+import GamesListItem from '../../components/ui/GamesListItem';
 
 const Games: NextPage = () => {
 	const { data: session, status } = useSession();
