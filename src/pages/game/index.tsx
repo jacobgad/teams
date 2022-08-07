@@ -8,8 +8,8 @@ import { Spinner } from 'components/ui/Loading';
 import toast from 'react-hot-toast';
 import { trpc } from 'utils/trpc';
 import { PlusIcon } from '@heroicons/react/solid';
-import DeleteGameBtn from 'components/ui/DeleteGameBtn';
 import { AnimatePresence, motion } from 'framer-motion';
+import GamesListItem from './GamesListItem';
 
 const Games: NextPage = () => {
 	const { data: session, status } = useSession();
@@ -80,18 +80,8 @@ const Games: NextPage = () => {
 								initial='hidden'
 								animate='visible'
 								exit='removed'
-								className='flex gap-4'
 							>
-								<button
-									onClick={() => router.push(`/game/${game.id}`)}
-									className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition ease-out hover:scale-105 hover:bg-gray-600 active:scale-100'
-								>
-									<p>{game.name}</p>
-									<div className='flex gap-4'>
-										<p>{game.teamCount} Teams</p>
-									</div>
-								</button>
-								<DeleteGameBtn gameId={game.id} />
+								<GamesListItem game={game} />
 							</motion.li>
 						))}
 					</AnimatePresence>
