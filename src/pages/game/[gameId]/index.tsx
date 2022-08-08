@@ -43,7 +43,7 @@ const Game: NextPage = () => {
 			</Head>
 
 			<NavBar />
-			<main className='container mx-auto max-w-sm p-5'>
+			<main className='container mx-auto max-w-sm p-5 pb-16'>
 				{isLoading && (
 					<div className='mb-5 flex h-[60px] place-content-center'>
 						<Spinner />
@@ -74,9 +74,9 @@ const Game: NextPage = () => {
 					</button>
 				</div>
 
-				<div className='mt-5 grid gap-8'>
+				<ul className='mt-5 grid gap-8'>
 					{data?.Teams.map((team) => (
-						<div
+						<li
 							key={team.id}
 							className={` grid justify-items-center gap-2 overflow-hidden rounded-lg pb-2 shadow-md shadow-black 
 							transition ease-in-out hover:-translate-y-1 
@@ -94,9 +94,9 @@ const Game: NextPage = () => {
 									<li key={member.id}>{member.id}</li>
 								))}
 							</ul>
-						</div>
+						</li>
 					))}
-				</div>
+				</ul>
 			</main>
 		</>
 	);
