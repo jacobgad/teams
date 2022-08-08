@@ -22,7 +22,7 @@ export default function GamesListItem({ game }: Props) {
 	});
 
 	return (
-		<div className='flex gap-4'>
+		<div className='flex h-full gap-4'>
 			<button
 				onClick={() => router.push(`/game/${game.id}`)}
 				disabled={isLoading}
@@ -34,16 +34,14 @@ export default function GamesListItem({ game }: Props) {
 					<p>{game.teamCount} Teams</p>
 				</div>
 			</button>
-			<div>
-				<button
-					onClick={() => mutate({ gameId: game.id })}
-					disabled={isLoading}
-					className='aspect-square h-full rounded-full bg-red-500 p-4 text-white 
+			<button
+				onClick={() => mutate({ gameId: game.id })}
+				disabled={isLoading}
+				className='aspect-square h-full rounded-full bg-red-500 p-4 text-white 
         hover:scale-105 hover:bg-red-600 active:scale-95 active:bg-red-600 disabled:scale-100 disabled:bg-gray-800'
-				>
-					{isLoading ? <RefreshIcon className='animate-spin' /> : <TrashIcon />}
-				</button>
-			</div>
+			>
+				{isLoading ? <RefreshIcon className='animate-spin' /> : <TrashIcon />}
+			</button>
 		</div>
 	);
 }
