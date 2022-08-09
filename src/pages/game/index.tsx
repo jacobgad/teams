@@ -80,6 +80,8 @@ const Games: NextPage = () => {
 								initial='hidden'
 								animate='visible'
 								exit='removed'
+								layout
+								transition={{ layout: { type: 'spring' } }}
 							>
 								<GamesListItem game={game} />
 							</motion.li>
