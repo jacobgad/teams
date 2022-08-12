@@ -19,7 +19,13 @@ export default function NavBar() {
 			{session && (
 				<div className='flex items-center gap-4'>
 					<Image
-						src={session.user?.image ? session.user.image : ''}
+						src={
+							session.user?.image
+								? session.user.image
+								: `https://avatars.dicebear.com/api/bottts/${
+										session.user?.email?.split('@')[0]
+								  }.svg`
+						}
 						width='40px'
 						height='40px'
 						className='rounded-full'
