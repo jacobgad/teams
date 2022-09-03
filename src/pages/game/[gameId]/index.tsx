@@ -7,7 +7,7 @@ import { teamOptions } from '../../../utils/teams';
 import { Spinner } from '../../../components/ui/Loading';
 import { env } from 'env/client.mjs';
 import paramToString from 'utils/next';
-import { ClipboardCopyIcon } from '@heroicons/react/solid';
+import { ClipboardDocumentIcon } from '@heroicons/react/24/solid';
 import NavBar from 'components/ui/NavBar';
 
 function getJoinUrl(gameId: string) {
@@ -70,7 +70,7 @@ const Game: NextPage = () => {
 					hover:scale-105 hover:bg-sky-700 active:scale-100'
 					>
 						<p className='overflow-hidden text-ellipsis'>{getJoinUrl(gameId as string)}</p>
-						<ClipboardCopyIcon className='h-12' />
+						<ClipboardDocumentIcon className='h-12' />
 					</button>
 				</div>
 

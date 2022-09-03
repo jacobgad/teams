@@ -7,7 +7,7 @@ import NavBar from 'components/ui/NavBar';
 import { Spinner } from 'components/ui/Loading';
 import toast from 'react-hot-toast';
 import { trpc } from 'utils/trpc';
-import { PlusIcon } from '@heroicons/react/solid';
+import { PlusIcon } from '@heroicons/react/24/solid';
 import { AnimatePresence, motion } from 'framer-motion';
 import GamesListItem from '../../components/ui/GamesListItem';
 

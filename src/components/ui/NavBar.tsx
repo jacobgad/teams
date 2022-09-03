@@ -1,4 +1,4 @@
-import { HomeIcon } from '@heroicons/react/solid';
+import { HomeIcon } from '@heroicons/react/24/solid';
 import { signOut, signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';

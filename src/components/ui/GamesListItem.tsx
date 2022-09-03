@@ -1,4 +1,4 @@
-import { RefreshIcon, TrashIcon } from '@heroicons/react/solid';
+import { ArrowPathIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Game } from '@prisma/client';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
@@ -40,7 +40,7 @@ export default function GamesListItem({ game }: Props) {
 				className='aspect-square h-full rounded-full bg-red-500 p-4 text-white 
         hover:scale-105 hover:bg-red-600 active:scale-95 active:bg-red-600 disabled:scale-100 disabled:bg-gray-800'
 			>
-				{isLoading ? <RefreshIcon className='animate-spin' /> : <TrashIcon />}
+				{isLoading ? <ArrowPathIcon className='animate-spin' /> : <TrashIcon />}
 			</button>
 		</div>
 	);
