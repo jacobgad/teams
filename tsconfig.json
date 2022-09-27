@@ -16,6 +16,7 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
+    "strictNullChecks": true,
     "baseUrl": "./src"
   },
   "include": [
