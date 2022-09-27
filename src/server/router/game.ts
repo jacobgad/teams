@@ -22,8 +22,11 @@ export const gameRouter = createProtectedRouter()
 			gameId: z.string().cuid(),
 		}),
 		async resolve({ ctx, input }) {
-			const game = await ctx.prisma.game.findUnique({ where: { id: input.gameId } });
-			if (!game) throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
+			const game = await ctx.prisma.game.findUnique({
+				where: { id: input.gameId },
+			});
+			if (!game)
+				throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
 			if (game.userId !== ctx.session.user.id)
 				return new TRPCError({
 					code: 'UNAUTHORIZED',
@@ -36,7 +39,10 @@ export const gameRouter = createProtectedRouter()
 				where: { id: input.gameId },
 				include: { Teams: true },
 			});
-			const transaction = await ctx.prisma.$transaction([deleteTeams, deleteGame]);
+			const transaction = await ctx.prisma.$transaction([
+				deleteTeams,
+				deleteGame,
+			]);
 			return transaction[1];
 		},
 	})
@@ -48,7 +54,8 @@ export const gameRouter = createProtectedRouter()
 				where: { id: input.gameId },
 				include: { Teams: { include: { members: true } } },
 			});
-			if (!game) throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
+			if (!game)
+				throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
 			return game;
 		},
 	})

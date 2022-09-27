@@ -8,7 +8,10 @@ export const memebrRouter = createRouter().query('joinGame', {
 		memberId: z.string().uuid().nullable(),
 		gameId: z.string().cuid(),
 	}),
-	async resolve({ ctx, input }): Promise<{ team: Team; memberId: Member['id'] }> {
+	async resolve({
+		ctx,
+		input,
+	}): Promise<{ team: Team; memberId: Member['id'] }> {
 		async function getMember(id: Member['id'] | null): Promise<Member> {
 			if (!id) return ctx.prisma.member.create({ data: {} });
 			const found = await ctx.prisma.member.findUnique({ where: { id } });
@@ -21,9 +24,12 @@ export const memebrRouter = createRouter().query('joinGame', {
 			where: { id: input.gameId },
 			include: { Teams: { include: { members: true } } },
 		});
-		if (!game) throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
+		if (!game)
+			throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
 
-		const team = game.Teams.find((t) => t.members.find((m) => m.id === member.id));
+		const team = game.Teams.find((t) =>
+			t.members.find((m) => m.id === member.id)
+		);
 		if (team) return { team, memberId: member.id };
 
 		if (game.Teams.length < game.teamCount) {

@@ -17,13 +17,16 @@ function getJoinUrl(gameId: string) {
 const Game: NextPage = () => {
 	const router = useRouter();
 	const { gameId } = router.query;
-	const { data, isLoading } = trpc.useQuery(['game.get', { gameId: paramToString(gameId) }], {
-		refetchInterval: 4000,
-		onError: (error) => {
-			toast.error(error.message);
-			if (error.data?.code === 'NOT_FOUND') router.push('/game');
-		},
-	});
+	const { data, isLoading } = trpc.useQuery(
+		['game.get', { gameId: paramToString(gameId) }],
+		{
+			refetchInterval: 4000,
+			onError: (error) => {
+				toast.error(error.message);
+				if (error.data?.code === 'NOT_FOUND') router.push('/game');
+			},
+		}
+	);
 
 	async function handleLinkClick(link: string) {
 		try {
@@ -69,7 +72,9 @@ const Game: NextPage = () => {
 						className='my-5 flex w-3/4 items-center gap-4 rounded-lg bg-sky-800 px-4 transition-all ease-out
 					hover:scale-105 hover:bg-sky-700 active:scale-100'
 					>
-						<p className='overflow-hidden text-ellipsis'>{getJoinUrl(gameId as string)}</p>
+						<p className='overflow-hidden text-ellipsis'>
+							{getJoinUrl(gameId as string)}
+						</p>
 						<ClipboardDocumentIcon className='h-12' />
 					</button>
 				</div>

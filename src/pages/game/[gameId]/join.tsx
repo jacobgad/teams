@@ -9,7 +9,10 @@ import { trpc } from 'utils/trpc';
 const Join: NextPage = () => {
 	const router = useRouter();
 	const { gameId } = router.query;
-	const [memberId, setMemberId] = useLocalStorage<string | null>('memberId', null);
+	const [memberId, setMemberId] = useLocalStorage<string | null>(
+		'memberId',
+		null
+	);
 	const { data, isLoading, isError, error, refetch, isIdle } = trpc.useQuery(
 		['member.joinGame', { gameId: gameId as string, memberId }],
 		{

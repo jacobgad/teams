@@ -12,7 +12,9 @@ function getSavedValue<T>(key: string, initialValue: T) {
 }
 
 export default function useLocalStorage<T>(key: string, initalValue: T) {
-	const [value, setValue] = useState<T>(() => getSavedValue<T>(key, initalValue));
+	const [value, setValue] = useState<T>(() =>
+		getSavedValue<T>(key, initalValue)
+	);
 
 	useEffect(() => {
 		localStorage.setItem(prefix + key, JSON.stringify(value));

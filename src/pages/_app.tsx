@@ -7,7 +7,10 @@ import { SessionProvider } from 'next-auth/react';
 import '../styles/globals.css';
 import { Toaster } from 'react-hot-toast';
 
-const MyApp: AppType = ({ Component, pageProps: { session, ...pageProps } }) => {
+const MyApp: AppType = ({
+	Component,
+	pageProps: { session, ...pageProps },
+}) => {
 	return (
 		<SessionProvider session={session}>
 			<Component {...pageProps} />
