@@ -4,7 +4,6 @@ import { trpc } from '../../../utils/trpc';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { teamOptions } from '../../../utils/teams';
-import { Spinner } from '../../../components/ui/Loading';
 import { env } from 'env/client.mjs';
 import paramToString from 'utils/next';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/solid';
@@ -47,23 +46,22 @@ const Game: NextPage = () => {
 
 			<NavBar />
 			<main className='container mx-auto max-w-sm p-5 pb-16'>
-				{isLoading && (
-					<div className='mb-5 flex h-[60px] place-content-center'>
-						<Spinner />
+				<div className='mb-5 flex w-full justify-between'>
+					<div>
+						<p>Game</p>
+						{isLoading && (
+							<div className='h-9 w-40 animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700' />
+						)}
+						{data && <h1 className='text-center text-3xl'>{data?.name}</h1>}
 					</div>
-				)}
-				{data && (
-					<div className='mb-5 flex w-full justify-between'>
-						<div>
-							<p>Game</p>
-							<h1 className='text-center text-3xl'>{data?.name}</h1>
-						</div>
-						<div>
-							<p>Teams</p>
-							<p className='text-center text-3xl'>{data?.teamCount}</p>
-						</div>
+					<div className='grid justify-center'>
+						<p>Teams</p>
+						{isLoading && (
+							<div className='h-9 w-full animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700' />
+						)}
+						{data && <p className='text-center text-3xl'>1{data.teamCount}</p>}
 					</div>
-				)}
+				</div>
 
 				<div className='flex items-center'>
 					<h2 className='w-1/4 text-xl'>Invite</h2>
