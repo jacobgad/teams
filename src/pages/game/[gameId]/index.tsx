@@ -15,7 +15,7 @@ function getJoinUrl(gameId: string) {
 
 const Game: NextPage = () => {
 	const router = useRouter();
-	const { gameId } = router.query;
+	const gameId = router.query.gameId as string;
 	const { data, isLoading } = trpc.useQuery(
 		['game.get', { gameId: paramToString(gameId) }],
 		{
@@ -59,19 +59,19 @@ const Game: NextPage = () => {
 						{isLoading && (
 							<div className='h-9 w-full animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700' />
 						)}
-						{data && <p className='text-center text-3xl'>1{data.teamCount}</p>}
+						{data && <p className='text-center text-3xl'>{data.teamCount}</p>}
 					</div>
 				</div>
 
 				<div className='flex items-center'>
 					<h2 className='w-1/4 text-xl'>Invite</h2>
 					<button
-						onClick={() => handleLinkClick(getJoinUrl(gameId as string))}
+						onClick={() => handleLinkClick(getJoinUrl(gameId))}
 						className='my-5 flex w-3/4 items-center gap-4 rounded-lg bg-sky-800 px-4 transition-all ease-out
 					hover:scale-105 hover:bg-sky-700 active:scale-100'
 					>
 						<p className='overflow-hidden text-ellipsis'>
-							{getJoinUrl(gameId as string)}
+							{getJoinUrl(gameId)}
 						</p>
 						<ClipboardDocumentIcon className='h-12' />
 					</button>
