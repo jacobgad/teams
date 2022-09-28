@@ -11,14 +11,15 @@ datasource db {
 }
 
 model Game {
-    id        String   @id @default(cuid())
-    name      String
-    teamCount Int
-    owner     User     @relation(fields: [userId], references: [id])
-    Teams     Team[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    userId    String
+    id           String   @id @default(cuid())
+    name         String
+    teamCount    Int
+    owner        User     @relation(fields: [userId], references: [id])
+    Teams        Team[]
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    userId       String
+    requireNames Boolean
 }
 
 model Team {
@@ -32,6 +33,7 @@ model Team {
 
 model Member {
     id        String   @id @default(uuid())
+    name      String   @default("")
     teams     Team[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

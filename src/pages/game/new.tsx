@@ -15,6 +15,7 @@ import NavBar from 'components/ui/NavBar';
 const schema = z.object({
 	name: z.string().min(4),
 	teamCount: z.number().min(2).max(teamOptions.length),
+	requireNames: z.boolean().default(false),
 });
 
 type Schema = z.infer<typeof schema>;
@@ -78,6 +79,15 @@ const NewGame: NextPage = () => {
 						{...register('teamCount', { valueAsNumber: true })}
 						error={errors.teamCount?.message}
 					/>
+					<div className='flex w-full items-center justify-between'>
+						<label htmlFor='requireNames'>Require Names</label>
+						<input
+							id='requireNames'
+							type='checkbox'
+							{...register('requireNames', { valueAsNumber: true })}
+							className='mr-1 h-5 w-5 rounded'
+						/>
+					</div>
 					<button
 						type='submit'
 						disabled={!isValid || isLoading}

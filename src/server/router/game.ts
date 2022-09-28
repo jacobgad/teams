@@ -8,6 +8,7 @@ export const gameRouter = createProtectedRouter()
 		input: z.object({
 			name: z.string(),
 			teamCount: z.number().min(2).max(teamOptions.length),
+			requireNames: z.boolean(),
 		}),
 		async resolve({ ctx, input }) {
 			const game = await ctx.prisma.game.create({

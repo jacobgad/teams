@@ -5,67 +5,53 @@ import useLocalStorage from 'components/hooks/useLocalStorage';
 import { Spinner } from 'components/ui/Loading';
 import { teamOptions } from 'utils/teams';
 import { trpc } from 'utils/trpc';
+import { useState } from 'react';
+import { useIsFetching } from 'react-query';
+import { Member } from '@prisma/client';
+
+type StoredMember = Pick<Member, 'id' | 'name'>;
 
 const Join: NextPage = () => {
 	const router = useRouter();
-	const { gameId } = router.query;
-	const [memberId, setMemberId] = useLocalStorage<string | null>(
-		'memberId',
+	const gameId = router.query.gameId as string;
+	const [message, setMessage] = useState('Finding game');
+	const [member, setMember] = useLocalStorage<StoredMember | null>(
+		'member',
 		null
 	);
-	const { data, isLoading, isError, error, refetch, isIdle } = trpc.useQuery(
-		['member.joinGame', { gameId: gameId as string, memberId }],
-		{
-			onSuccess: (data) => {
-				if (data.memberId !== memberId) setMemberId(data.memberId);
-			},
-		}
-	);
 
-	if (isLoading) {
-		return (
-			<>
-				<Head>
-					<title>Join Team</title>
-					<meta name='description' content='Split into teams fast' />
-					<link rel='icon' href='/favicon.ico' />
-				</Head>
-				<main className='container mx-auto grid max-w-xs justify-items-center py-10'>
-					<h1 className='text-3xl'>Finding your team</h1>
-					<div className='mt-24 grid items-center'>
-						<Spinner />
-					</div>
-				</main>
-			</>
-		);
-	}
+	const fetches = useIsFetching();
+	const { mutate, data } = trpc.useMutation(['member.joinGame'], {
+		onSuccess: (data) => {
+			if (JSON.stringify(data.member) !== JSON.stringify(member)) {
+				setMember(data.member);
+			}
+		},
+		onError: (error) => {
+			if (error instanceof Error) {
+				setMessage(error.message);
+			}
+		},
+	});
 
-	if (isError || isIdle) {
-		return (
-			<>
-				<Head>
-					<title>Game</title>
-					<meta name='description' content='Split into teams fast' />
-					<link rel='icon' href='/favicon.ico' />
-				</Head>
-				<main className='container mx-auto grid max-w-xs justify-items-center py-10'>
-					<h1 className='text-3xl'>{`Can't Find Game`}</h1>
-					<div className='mt-24 grid items-center'>
-						{isError && <p className='text-center'>{error.message}</p>}
-						{isIdle && <p className='text-center'>Query is Idle</p>}
-						<button
-							onClick={() => refetch}
-							className='mt-4 rounded-lg bg-sky-600 px-5 py-2 shadow shadow-sky-600 hover:bg-sky-700 disabled:bg-sky-900 disabled:text-gray-400 disabled:shadow-none'
-						>
-							Try Again
-						</button>
-					</div>
-				</main>
-			</>
-		);
-	}
+	const { data: game } = trpc.useQuery(['member.getGame', { gameId }], {
+		onSuccess: (data) => {
+			if (data.requireNames) {
+				setMessage('Enter Name');
+			} else {
+				setMessage('Finding your Team');
+				mutate({ gameId, member });
+			}
+		},
+		onError: (error) => {
+			if (error instanceof Error) {
+				setMessage(error.message);
+			}
+		},
+	});
 
-	const team = teamOptions.at(data.team.id % teamOptions.length);
+	const team = data ? teamOptions.at(data.team.id % teamOptions.length)! : null;
+
 	return (
 		<>
 			<Head>
@@ -74,11 +60,15 @@ const Join: NextPage = () => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<main className={`h-[100vh] ${team?.color}`}>
-				<main className='${team?.color} grid h-1/3 items-center'>
-					<h1 className='text-center text-5xl'>Team {team?.name}</h1>
+			<div className={`h-[100vh] ${team?.color}`}>
+				<main className='grid h-1/3 items-center'>
+					<h1 className='text-center text-5xl'>
+						{team === null ? message : `Team ${team.name}`}
+					</h1>
+					{fetches && <Spinner />}
+					{game?.requireNames && <p>FORM</p>}
 				</main>
-			</main>
+			</div>
 		</>
 	);
 };
