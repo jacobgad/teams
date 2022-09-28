@@ -64,7 +64,7 @@ const Join: NextPage = () => {
 			<div className={`h-[100vh] ${team?.color}`}>
 				<main className='container mx-auto grid w-full max-w-xs justify-items-center gap-10 pt-10'>
 					{!data?.game && (
-						<div className='h-9 w-full animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700' />
+						<div className='h-9 w-40 animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700' />
 					)}
 					{data?.game && (
 						<h2 className='text-center text-3xl'>{data.game.name}</h2>
@@ -89,7 +89,7 @@ const Join: NextPage = () => {
 						</div>
 					)}
 					{data?.game.requireNames && data?.team && (
-						<div className='w-full overflow-hidden rounded-lg bg-slate-600'>
+						<div className='w-full overflow-hidden rounded-lg bg-slate-600 shadow'>
 							<h2 className='w-full bg-slate-700 px-4 py-2 text-center text-xl'>
 								My Team
 							</h2>

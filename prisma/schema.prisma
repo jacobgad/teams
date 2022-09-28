@@ -19,7 +19,7 @@ model Game {
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
     userId       String
-    requireNames Boolean
+    requireNames Boolean  @default(false)
 }
 
 model Team {
