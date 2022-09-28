@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { trpc } from 'utils/trpc';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,8 +18,6 @@ const schema = z.object({
 	requireNames: z.boolean().default(false),
 });
 
-type Schema = z.infer<typeof schema>;
-
 const NewGame: NextPage = () => {
 	const { data: session } = useSession();
 	const router = useRouter();
@@ -27,7 +25,7 @@ const NewGame: NextPage = () => {
 		register,
 		formState: { errors, isValid },
 		handleSubmit,
-	} = useForm<Schema>({
+	} = useForm<z.infer<typeof schema>>({
 		resolver: zodResolver(schema),
 		mode: 'onChange',
 	});
@@ -40,8 +38,6 @@ const NewGame: NextPage = () => {
 			router.push(`/game/${data.id}`);
 		},
 	});
-
-	const onSubmit: SubmitHandler<Schema> = (data) => mutate(data);
 
 	useEffect(() => {
 		if (!session) router.push('/login');
@@ -62,7 +58,7 @@ const NewGame: NextPage = () => {
 				<h1 className='mb-8 text-center text-3xl'>New Game</h1>
 
 				<form
-					onSubmit={handleSubmit(onSubmit)}
+					onSubmit={handleSubmit((data) => mutate(data))}
 					className='grid justify-items-center gap-4'
 				>
 					<TextField

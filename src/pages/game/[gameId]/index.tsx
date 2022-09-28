@@ -94,7 +94,9 @@ const Game: NextPage = () => {
 							</div>
 							<ul className='grid gap-1'>
 								{team.members.map((member) => (
-									<li key={member.id}>{member.id}</li>
+									<li key={member.id}>
+										{member.name ? member.name : member.id}
+									</li>
 								))}
 							</ul>
 						</li>

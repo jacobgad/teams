@@ -1,4 +1,10 @@
-export const teamOptions = [
+interface TeamOption {
+	name: string;
+	color: string;
+	activeColor: string;
+}
+
+export const teamOptions: TeamOption[] = [
 	{ name: 'Slate', color: 'bg-slate-600', activeColor: 'bg-slate-700' },
 	{ name: 'Zinc', color: 'bg-zinc-600', activeColor: 'bg-zinc-700' },
 	{ name: 'Stone', color: 'bg-stone-600', activeColor: 'bg-stone-700' },

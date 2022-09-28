@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 	id: string;
-	label: string;
+	label?: string;
 	error?: string;
 }
 

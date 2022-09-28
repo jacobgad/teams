@@ -5,52 +5,53 @@ import useLocalStorage from 'components/hooks/useLocalStorage';
 import { Spinner } from 'components/ui/Loading';
 import { teamOptions } from 'utils/teams';
 import { trpc } from 'utils/trpc';
-import { useState } from 'react';
-import { useIsFetching } from 'react-query';
+import { useMemo, useState } from 'react';
 import { Member } from '@prisma/client';
-
-type StoredMember = Pick<Member, 'id' | 'name'>;
+import MemberNameForm from 'components/MemberNameForm';
+import { isEqualObject } from 'utils/members';
 
 const Join: NextPage = () => {
 	const router = useRouter();
 	const gameId = router.query.gameId as string;
-	const [message, setMessage] = useState('Finding game');
-	const [member, setMember] = useLocalStorage<StoredMember | null>(
-		'member',
-		null
+	const utils = trpc.useContext();
+	const [message, setMessage] = useState('Finding Game');
+	const [member, setMember] = useLocalStorage<Member | null>('member', null);
+
+	const { mutate, isLoading } = trpc.useMutation(['member.joinGame'], {
+		onSuccess: (data) => {
+			if (!isEqualObject(data, member)) setMember(data);
+			utils.invalidateQueries(['member.getGame']);
+		},
+		onError: (error) => {
+			if (error instanceof Error) {
+				setMessage(error.message);
+			}
+		},
+	});
+
+	const { data, isLoading: isLoadingGame } = trpc.useQuery(
+		['member.getGame', { gameId, memberId: member?.id }],
+		{
+			onSuccess: (data) => {
+				if (data.game.requireNames) return setMessage('Enter Name');
+				setMessage('Finding your Team');
+				mutate({ gameId, member: member ?? undefined });
+			},
+			onError: (error) => {
+				if (error instanceof Error) {
+					setMessage(error.message);
+				}
+			},
+		}
 	);
 
-	const fetches = useIsFetching();
-	const { mutate, data } = trpc.useMutation(['member.joinGame'], {
-		onSuccess: (data) => {
-			if (JSON.stringify(data.member) !== JSON.stringify(member)) {
-				setMember(data.member);
-			}
-		},
-		onError: (error) => {
-			if (error instanceof Error) {
-				setMessage(error.message);
-			}
-		},
-	});
-
-	const { data: game } = trpc.useQuery(['member.getGame', { gameId }], {
-		onSuccess: (data) => {
-			if (data.requireNames) {
-				setMessage('Enter Name');
-			} else {
-				setMessage('Finding your Team');
-				mutate({ gameId, member });
-			}
-		},
-		onError: (error) => {
-			if (error instanceof Error) {
-				setMessage(error.message);
-			}
-		},
-	});
-
-	const team = data ? teamOptions.at(data.team.id % teamOptions.length)! : null;
+	const team = useMemo(
+		() =>
+			data?.team?.id
+				? teamOptions.at(data.team.id % teamOptions.length)!
+				: null,
+		[data]
+	);
 
 	return (
 		<>
@@ -61,12 +62,51 @@ const Join: NextPage = () => {
 			</Head>
 
 			<div className={`h-[100vh] ${team?.color}`}>
-				<main className='grid h-1/3 items-center'>
+				<main className='container mx-auto grid w-full max-w-xs justify-items-center gap-10 pt-10'>
+					{!data?.game && (
+						<div className='h-9 w-full animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700' />
+					)}
+					{data?.game && (
+						<h2 className='text-center text-3xl'>{data.game.name}</h2>
+					)}
 					<h1 className='text-center text-5xl'>
 						{team === null ? message : `Team ${team.name}`}
 					</h1>
-					{fetches && <Spinner />}
-					{game?.requireNames && <p>FORM</p>}
+
+					{isLoadingGame && <Spinner />}
+					{!team && data?.game?.requireNames && (
+						<div className='w-full px-5'>
+							<MemberNameForm
+								defaultName={member?.name}
+								isLoading={isLoading}
+								onSubmit={(data) =>
+									mutate({
+										gameId,
+										member: { id: member?.id, name: data.name },
+									})
+								}
+							/>
+						</div>
+					)}
+					{data?.game.requireNames && data?.team && (
+						<div className='w-full overflow-hidden rounded-lg bg-slate-600'>
+							<h2 className='w-full bg-slate-700 px-4 py-2 text-center text-xl'>
+								My Team
+							</h2>
+							<ul className='w-full'>
+								{data.team.members.map((member, i) => (
+									<li
+										className={`w-full px-4 py-1 text-lg ${
+											i % 2 && 'bg-slate-500'
+										}`}
+										key={member.id}
+									>
+										{member.name}
+									</li>
+								))}
+							</ul>
+						</div>
+					)}
 				</main>
 			</div>
 		</>
