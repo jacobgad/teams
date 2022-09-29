@@ -68,8 +68,7 @@ const Game: NextPage = () => {
 					<h2 className='w-1/4 text-xl'>Invite</h2>
 					<button
 						onClick={() => handleLinkClick(getJoinUrl(gameId))}
-						className='my-5 flex w-3/4 items-center gap-4 rounded-lg bg-sky-800 px-4 transition-all ease-out
-					hover:scale-105 hover:bg-sky-700 active:scale-100'
+						className='ease-outhover:bg-sky-700 my-5 flex w-3/4 items-center gap-4 rounded-lg bg-sky-800 px-4 transition-all active:scale-95'
 					>
 						<p className='overflow-hidden text-ellipsis'>
 							{getJoinUrl(gameId)}

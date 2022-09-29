@@ -25,8 +25,7 @@ export default function GamesListItem({ game }: Props) {
 			<Link href={`/game/${game.id}`}>
 				<button
 					disabled={isLoading}
-					className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition ease-out 
-        hover:scale-105 hover:bg-gray-600 active:scale-100 disabled:bg-gray-800'
+					className='ease-outhover:bg-gray-600 flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition active:scale-95 disabled:bg-gray-800'
 				>
 					<p>{game.name}</p>
 					<div className='flex gap-4'>
@@ -37,8 +36,7 @@ export default function GamesListItem({ game }: Props) {
 			<button
 				onClick={() => mutate({ gameId: game.id })}
 				disabled={isLoading}
-				className='aspect-square h-full rounded-full bg-red-500 p-4 text-white 
-        hover:scale-105 hover:bg-red-600 active:scale-100 active:bg-red-600 disabled:scale-100 disabled:bg-gray-800'
+				className='text-whitehover:bg-red-600 aspect-square h-full rounded-full bg-red-500 p-4 active:scale-95 active:bg-red-600 disabled:scale-100 disabled:bg-gray-800'
 			>
 				{isLoading ? <ArrowPathIcon className='animate-spin' /> : <TrashIcon />}
 			</button>

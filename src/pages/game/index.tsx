@@ -43,7 +43,7 @@ const Games: NextPage = () => {
 				<div className='mb-10 flex justify-between'>
 					<h1 className='text-center text-3xl'>My Games</h1>
 					<Link href={'/game/new'}>
-						<button className='flex items-center gap-2 rounded bg-sky-600 px-4 py-2 hover:bg-sky-700'>
+						<button className='flex items-center gap-2 rounded bg-sky-600 px-4 py-2 hover:bg-sky-700 active:scale-95'>
 							<PlusIcon className='h-5 w-5' /> New Game
 						</button>
 					</Link>

@@ -21,7 +21,7 @@ const Home: NextPage = () => {
 					<h1 className='text-center text-4xl'>Teams</h1>
 					{session.status === 'authenticated' && (
 						<Link href='/game'>
-							<button className='flex items-center gap-2 rounded bg-sky-600 px-4 py-2 transition hover:scale-105 active:scale-100'>
+							<button className='flex items-center gap-2 rounded bg-sky-600 px-4 py-2 transition  active:scale-95'>
 								My Games
 							</button>
 						</Link>

@@ -15,13 +15,12 @@ export default function TeamTable({ team, theme }: Props) {
 
 	return (
 		<div
-			className={`w-full overflow-hidden rounded-lg shadow-xl
-							transition ease-in-out hover:-translate-y-1 
-							${options?.color.main}`}
+			className={`w-full overflow-hidden rounded-lg shadow-xl transition ease-in-out hover:-translate-y-1 
+			${options?.color.main}`}
 		>
 			<div
-				className={`flex w-full items-center justify-between px-3 py-1 text-lg
-								${options?.color.dark}`}
+				className={`flex w-full items-center justify-between px-3 py-1 text-lg 
+				${options?.color.dark}`}
 			>
 				<p>{options?.name}</p>
 				<p>{team.members.length}</p>

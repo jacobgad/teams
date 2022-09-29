@@ -10,7 +10,7 @@ export default function NavBar() {
 	return (
 		<nav className='flex items-center justify-between bg-slate-800 py-2 px-4'>
 			<Link href={session ? '/game' : '/'}>
-				<button className='w-8 transition ease-in-out hover:scale-110 hover:text-sky-400 active:scale-100'>
+				<button className='w-8 transition ease-in-out hover:text-sky-400 active:scale-95'>
 					<HomeIcon />
 				</button>
 			</Link>
@@ -36,8 +36,7 @@ export default function NavBar() {
 				<Link href={'/'}>
 					<button
 						onClick={() => signOut()}
-						className='hover:text-bg-slate-800 rounded px-3 py-2 ring-1 ring-slate-400 
-					hover:bg-slate-400 hover:bg-opacity-25'
+						className='hover:text-bg-slate-800 ring-slate-40 rounded px-3 py-2 ring-1 hover:bg-slate-400 hover:bg-opacity-25 active:scale-95'
 					>
 						Sign Out
 					</button>
@@ -52,7 +51,7 @@ export default function NavBar() {
 							error: 'Oops there was an error',
 						});
 					}}
-					className='rounded bg-sky-600 px-5 py-2 hover:bg-sky-400 hover:text-black'
+					className='rounded bg-sky-600 px-5 py-2 hover:bg-sky-400 hover:text-black active:scale-95'
 				>
 					Sign In
 				</button>
