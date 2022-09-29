@@ -1,7 +1,6 @@
 import { ArrowPathIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Game } from '@prisma/client';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { trpc } from 'utils/trpc';
 
@@ -10,7 +9,6 @@ interface Props {
 }
 
 export default function GamesListItem({ game }: Props) {
-	const router = useRouter();
 	const utils = trpc.useContext();
 	const { isLoading, mutate } = trpc.useMutation(['game.delete'], {
 		onError: (error) => {
