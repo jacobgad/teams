@@ -4,10 +4,11 @@ import type { AppRouter } from '../server/router';
 import type { AppType } from 'next/dist/shared/lib/utils';
 import superjson from 'superjson';
 import { SessionProvider } from 'next-auth/react';
-import '../styles/globals.css';
 import { Toaster } from 'react-hot-toast';
+import { Session } from 'next-auth';
+import '../styles/globals.css';
 
-const MyApp: AppType = ({
+const MyApp: AppType<{ session: Session | null }> = ({
 	Component,
 	pageProps: { session, ...pageProps },
 }) => {

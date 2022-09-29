@@ -1,8 +1,8 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
-import { useEffect, useMemo } from 'react';
+import { getSession } from 'next-auth/react';
+import { useMemo } from 'react';
 import NavBar from 'components/ui/NavBar';
 import { Spinner } from 'components/ui/Loading';
 import toast from 'react-hot-toast';
@@ -11,8 +11,13 @@ import { PlusIcon } from '@heroicons/react/24/solid';
 import { AnimatePresence, motion } from 'framer-motion';
 import GamesListItem from '../../components/ui/GamesListItem';
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const session = await getSession(context);
+	if (!session) return { redirect: { destination: '/login' }, props: {} };
+	return { props: {} };
+};
+
 const Games: NextPage = () => {
-	const { data: session, status } = useSession();
 	const router = useRouter();
 	const { data, isLoading } = trpc.useQuery(['game.getAll'], {
 		onError: (error) => toast.error(error.message),
@@ -24,12 +29,6 @@ const Games: NextPage = () => {
 			(pre, cur) => cur.createdAt.getTime() - pre.createdAt.getTime()
 		);
 	}, [data]);
-
-	useEffect(() => {
-		if (status === 'unauthenticated') router.push('/login');
-	}, [status, router]);
-
-	if (!session) return null;
 
 	return (
 		<>

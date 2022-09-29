@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -8,9 +8,14 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { teamOptions } from 'utils/teams';
 import TextField from 'components/ui/TextField';
-import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import { getSession } from 'next-auth/react';
 import NavBar from 'components/ui/NavBar';
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const session = await getSession(context);
+	if (!session) return { redirect: { destination: '/login' }, props: {} };
+	return { props: {} };
+};
 
 const schema = z.object({
 	name: z.string().min(4),
@@ -19,7 +24,6 @@ const schema = z.object({
 });
 
 const NewGame: NextPage = () => {
-	const { data: session } = useSession();
 	const router = useRouter();
 	const {
 		register,
@@ -38,12 +42,6 @@ const NewGame: NextPage = () => {
 			router.push(`/game/${data.id}`);
 		},
 	});
-
-	useEffect(() => {
-		if (!session) router.push('/login');
-	}, [session, router]);
-
-	if (!session) return null;
 
 	return (
 		<>

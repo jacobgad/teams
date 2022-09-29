@@ -1,17 +1,14 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useSession, signIn } from 'next-auth/react';
-import { useEffect } from 'react';
+import { signIn, getSession } from 'next-auth/react';
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const session = await getSession(context);
+	if (session) return { redirect: { destination: '/game' }, props: {} };
+	return { props: {} };
+};
 
 const Login: NextPage = () => {
-	const session = useSession();
-	const router = useRouter();
-
-	useEffect(() => {
-		if (session.status === 'loading') if (session) router.push('/');
-	}, [session, router]);
-
 	return (
 		<>
 			<Head>
