@@ -2,12 +2,10 @@ import { HomeIcon } from '@heroicons/react/24/solid';
 import { signOut, signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
 export default function NavBar() {
-	const { data: session } = useSession();
-	const router = useRouter();
+	const session = useSession();
 
 	return (
 		<nav className='flex items-center justify-between bg-slate-800 py-2 px-4'>
@@ -16,14 +14,14 @@ export default function NavBar() {
 					<HomeIcon />
 				</button>
 			</Link>
-			{session && (
+			{session.status === 'authenticated' && (
 				<div className='flex items-center gap-4'>
 					<Image
 						src={
-							session.user?.image
-								? session.user.image
+							session.data?.user?.image
+								? session.data?.user.image
 								: `https://avatars.dicebear.com/api/bottts/${
-										session.user?.email?.split('@')[0]
+										session.data?.user?.email?.split('@')[0]
 								  }.svg`
 						}
 						width='40px'
@@ -31,17 +29,19 @@ export default function NavBar() {
 						className='rounded-full'
 						alt='user image'
 					/>
-					<p>{session.user?.name}</p>
+					<p>{session.data?.user?.name}</p>
 				</div>
 			)}
-			{session ? (
-				<button
-					onClick={() => router.push('/').then(() => signOut())}
-					className='hover:text-bg-slate-800 rounded px-3 py-2 ring-1 ring-slate-400 
+			{session.status === 'authenticated' ? (
+				<Link href={'/'}>
+					<button
+						onClick={() => signOut()}
+						className='hover:text-bg-slate-800 rounded px-3 py-2 ring-1 ring-slate-400 
 					hover:bg-slate-400 hover:bg-opacity-25'
-				>
-					Sign Out
-				</button>
+					>
+						Sign Out
+					</button>
+				</Link>
 			) : (
 				<button
 					onClick={() => {

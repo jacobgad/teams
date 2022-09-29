@@ -1,5 +1,6 @@
 import { ArrowPathIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Game } from '@prisma/client';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { trpc } from 'utils/trpc';
@@ -23,17 +24,18 @@ export default function GamesListItem({ game }: Props) {
 
 	return (
 		<div className='flex h-full gap-4'>
-			<button
-				onClick={() => router.push(`/game/${game.id}`)}
-				disabled={isLoading}
-				className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition ease-out 
+			<Link href={`/game/${game.id}`}>
+				<button
+					disabled={isLoading}
+					className='flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition ease-out 
         hover:scale-105 hover:bg-gray-600 active:scale-100 disabled:bg-gray-800'
-			>
-				<p>{game.name}</p>
-				<div className='flex gap-4'>
-					<p>{game.teamCount} Teams</p>
-				</div>
-			</button>
+				>
+					<p>{game.name}</p>
+					<div className='flex gap-4'>
+						<p>{game.teamCount} Teams</p>
+					</div>
+				</button>
+			</Link>
 			<button
 				onClick={() => mutate({ gameId: game.id })}
 				disabled={isLoading}
