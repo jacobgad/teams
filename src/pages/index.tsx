@@ -2,13 +2,11 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import NavBar from 'components/ui/NavBar';
 import Link from 'next/link';
-
-interface ItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	label: string;
-	href: string;
-}
+import { useSession } from 'next-auth/react';
 
 const Home: NextPage = () => {
+	const session = useSession();
+
 	return (
 		<>
 			<Head>
@@ -19,29 +17,34 @@ const Home: NextPage = () => {
 
 			<NavBar />
 			<main className='container mx-auto max-w-2xl py-5 px-8'>
-				<h1 className='mb-5 text-center text-3xl'>Teams</h1>
-				<div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
-					<Item label='My Games' href='/game' />
-					<Item label='New Game' href='/game/new' />
-					<Item label='Join Game' href='/game/join' disabled />
+				<div className='mb-5 flex justify-between'>
+					<h1 className='h-11 text-center text-3xl'>Teams</h1>
+					{session.status === 'authenticated' && (
+						<Link href='/game'>
+							<button className='rounded-lg bg-white px-4 py-2 text-lg font-semibold text-sky-900 transition ease-in-out hover:scale-105 active:scale-100'>
+								My Games
+							</button>
+						</Link>
+					)}
 				</div>
+				<p>
+					Teams is a fast way to split up a group of people into random teams,
+					just create a game and share the link.
+				</p>
+				<br />
+				<p>
+					Teams was build from watching the frustrations of Verena, a youth
+					leader who would expend way to much effort organising the youth into
+					groups to start a game
+				</p>
+				<br />
+				<p>
+					I pray that this app means for you, less time organising and more time
+					having fun with friends.
+				</p>
 			</main>
 		</>
 	);
 };
-
-function Item({ label, href, ...rest }: ItemProps) {
-	return (
-		<Link href={href}>
-			<button
-				{...rest}
-				className='w-full rounded-lg bg-sky-700 p-10 shadow-md shadow-black transition ease-in-out hover:scale-105 
-				active:scale-95 disabled:scale-100 disabled:bg-gray-700 disabled:shadow-none md:aspect-video'
-			>
-				<p className='text-lg'>{label}</p>
-			</button>
-		</Link>
-	);
-}
 
 export default Home;

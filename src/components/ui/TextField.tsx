@@ -23,7 +23,9 @@ const TextField = forwardRef<Ref, Props>(function TextField(
 				id={id}
 				className='w-full rounded-lg text-black'
 			/>
-			<span className='text-sm text-red-500'>{error}</span>
+			<div className='h-5 px-1'>
+				<span className='text-sm text-red-500'>{error}</span>
+			</div>
 		</div>
 	);
 });

@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { trpc } from '../../../utils/trpc';
 import toast from 'react-hot-toast';
@@ -8,6 +8,13 @@ import { env } from 'env/client.mjs';
 import paramToString from 'utils/next';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/solid';
 import NavBar from 'components/ui/NavBar';
+import { getSession } from 'next-auth/react';
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const session = await getSession(context);
+	if (!session) return { redirect: { destination: '/' }, props: {} };
+	return { props: {} };
+};
 
 function getJoinUrl(gameId: string) {
 	return env.NEXT_PUBLIC_VERCEL_URL + `/game/${gameId}/join`;
@@ -16,7 +23,7 @@ function getJoinUrl(gameId: string) {
 const Game: NextPage = () => {
 	const router = useRouter();
 	const gameId = router.query.gameId as string;
-	const { data, isLoading } = trpc.useQuery(
+	const { data } = trpc.useQuery(
 		['game.get', { gameId: paramToString(gameId) }],
 		{
 			refetchInterval: 4000,
@@ -47,18 +54,12 @@ const Game: NextPage = () => {
 			<NavBar />
 			<main className='container mx-auto max-w-sm p-5 pb-16'>
 				<div className='mb-5 flex w-full justify-between'>
-					<div>
+					<div className='h-16'>
 						<p>Game</p>
-						{isLoading && (
-							<div className='h-9 w-40 animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700' />
-						)}
 						{data && <h1 className='text-center text-3xl'>{data?.name}</h1>}
 					</div>
 					<div className='grid justify-center'>
 						<p>Teams</p>
-						{isLoading && (
-							<div className='h-9 w-full animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700' />
-						)}
 						{data && <p className='text-center text-3xl'>{data.teamCount}</p>}
 					</div>
 				</div>

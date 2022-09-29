@@ -12,7 +12,7 @@ export default function NavBar() {
 	return (
 		<nav className='flex items-center justify-between bg-slate-800 py-2 px-4'>
 			<Link href={session ? '/game' : '/'}>
-				<button className='w-8 transition ease-in-out hover:scale-110 hover:text-sky-400 active:scale-95'>
+				<button className='w-8 transition ease-in-out hover:scale-110 hover:text-sky-400 active:scale-100'>
 					<HomeIcon />
 				</button>
 			</Link>

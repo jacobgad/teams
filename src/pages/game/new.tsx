@@ -13,7 +13,7 @@ import NavBar from 'components/ui/NavBar';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);
-	if (!session) return { redirect: { destination: '/login' }, props: {} };
+	if (!session) return { redirect: { destination: '/' }, props: {} };
 	return { props: {} };
 };
 
@@ -57,7 +57,7 @@ const NewGame: NextPage = () => {
 
 				<form
 					onSubmit={handleSubmit((data) => mutate(data))}
-					className='grid justify-items-center gap-4'
+					className='grid justify-items-center gap-1'
 				>
 					<TextField
 						id='name'

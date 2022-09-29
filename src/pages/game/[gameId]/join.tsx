@@ -14,7 +14,7 @@ const Join: NextPage = () => {
 	const router = useRouter();
 	const gameId = router.query.gameId as string;
 	const utils = trpc.useContext();
-	const [message, setMessage] = useState('Finding Game');
+	const [message, setMessage] = useState('Finding Team');
 	const [member, setMember] = useLocalStorage<Member | null>('member', null);
 
 	const { mutate, isLoading } = trpc.useMutation(['member.joinGame'], {
@@ -34,7 +34,6 @@ const Join: NextPage = () => {
 		{
 			onSuccess: (data) => {
 				if (data.game.requireNames) return setMessage('Enter Name');
-				setMessage('Finding your Team');
 				mutate({ gameId, member: member ?? undefined });
 			},
 			onError: (error) => {
@@ -63,17 +62,16 @@ const Join: NextPage = () => {
 
 			<div className={`h-[100vh] ${team?.color}`}>
 				<main className='container mx-auto grid w-full max-w-xs justify-items-center gap-10 pt-10'>
-					{!data?.game && (
-						<div className='h-9 w-40 animate-pulse rounded-xl bg-gray-200 dark:bg-gray-700' />
-					)}
-					{data?.game && (
-						<h2 className='text-center text-3xl'>{data.game.name}</h2>
-					)}
+					<div className='h-9'>
+						{data?.game && (
+							<h2 className='text-center text-3xl'>{data.game.name}</h2>
+						)}
+					</div>
 					<h1 className='text-center text-5xl'>
 						{team === null ? message : `Team ${team.name}`}
 					</h1>
 
-					{isLoadingGame && <Spinner />}
+					{isLoadingGame && !isLoading && <Spinner />}
 					{!team && data?.game?.requireNames && (
 						<div className='w-full px-5'>
 							<MemberNameForm
@@ -90,9 +88,10 @@ const Join: NextPage = () => {
 					)}
 					{data?.game.requireNames && data?.team && (
 						<div className='w-full overflow-hidden rounded-lg bg-slate-600 shadow'>
-							<h2 className='w-full bg-slate-700 px-4 py-2 text-center text-xl'>
-								My Team
-							</h2>
+							<div className='flex w-full justify-between bg-slate-700 px-4 py-2 text-center text-xl'>
+								<h2>Members</h2>
+								<h2>{data.team.members.length}</h2>
+							</div>
 							<ul className='w-full'>
 								{data.team.members.map((member, i) => (
 									<li
