@@ -3,12 +3,12 @@ import Head from 'next/head';
 import { trpc } from '../../../utils/trpc';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
-import { teamOptions } from '../../../utils/teams';
 import { env } from 'env/client.mjs';
 import paramToString from 'utils/next';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/solid';
 import NavBar from 'components/ui/NavBar';
 import { getSession } from 'next-auth/react';
+import TeamTable from 'components/ui/TeamTable';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);
@@ -80,27 +80,7 @@ const Game: NextPage = () => {
 
 				<ul className='mt-5 grid gap-8'>
 					{data?.Teams.map((team) => (
-						<li
-							key={team.id}
-							className={` grid justify-items-center gap-2 overflow-hidden rounded-lg pb-2 shadow-md shadow-black 
-							transition ease-in-out hover:-translate-y-1 
-							${teamOptions[team.id % teamOptions.length]?.color}`}
-						>
-							<div
-								className={`flex w-full items-center justify-between px-3 py-1 text-lg 
-								${teamOptions[team.id % teamOptions.length]?.activeColor}`}
-							>
-								<p>{teamOptions[team.id % teamOptions.length]?.name}</p>
-								<p>{team.members.length}</p>
-							</div>
-							<ul className='grid gap-1'>
-								{team.members.map((member) => (
-									<li key={member.id}>
-										{member.name ? member.name : member.id}
-									</li>
-								))}
-							</ul>
-						</li>
+						<TeamTable key={team.id} team={team} />
 					))}
 				</ul>
 			</main>

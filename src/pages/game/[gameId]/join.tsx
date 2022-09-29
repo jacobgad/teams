@@ -9,6 +9,7 @@ import { useMemo, useState } from 'react';
 import { Member } from '@prisma/client';
 import MemberNameForm from 'components/MemberNameForm';
 import { isEqualObject } from 'utils/members';
+import TeamTable from 'components/ui/TeamTable';
 
 const Join: NextPage = () => {
 	const router = useRouter();
@@ -60,7 +61,7 @@ const Join: NextPage = () => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<div className={`h-[100vh] ${team?.color}`}>
+			<div className={`h-[100vh] ${team?.color.main}`}>
 				<main className='container mx-auto grid w-full max-w-xs justify-items-center gap-10 pt-10'>
 					<div className='h-9'>
 						{data?.game && (
@@ -87,24 +88,17 @@ const Join: NextPage = () => {
 						</div>
 					)}
 					{data?.game.requireNames && data?.team && (
-						<div className='w-full overflow-hidden rounded-lg bg-slate-600 shadow'>
-							<div className='flex w-full justify-between bg-slate-700 px-4 py-2 text-center text-xl'>
-								<h2>Members</h2>
-								<h2>{data.team.members.length}</h2>
-							</div>
-							<ul className='w-full'>
-								{data.team.members.map((member, i) => (
-									<li
-										className={`w-full px-4 py-1 text-lg ${
-											i % 2 && 'bg-slate-500'
-										}`}
-										key={member.id}
-									>
-										{member.name}
-									</li>
-								))}
-							</ul>
-						</div>
+						<TeamTable
+							team={data.team}
+							theme={{
+								name: 'Members',
+								color: {
+									main: 'bg-slate-600',
+									dark: 'bg-slate-700',
+									border: 'border-slate-700',
+								},
+							}}
+						/>
 					)}
 				</main>
 			</div>

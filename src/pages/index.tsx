@@ -16,12 +16,12 @@ const Home: NextPage = () => {
 			</Head>
 
 			<NavBar />
-			<main className='container mx-auto max-w-2xl py-5 px-8'>
-				<div className='mb-5 flex justify-between'>
-					<h1 className='h-11 text-center text-3xl'>Teams</h1>
+			<main className='container mx-auto max-w-lg p-5 pb-16'>
+				<div className='mb-6 flex justify-between'>
+					<h1 className='text-center text-4xl'>Teams</h1>
 					{session.status === 'authenticated' && (
 						<Link href='/game'>
-							<button className='rounded-lg bg-white px-4 py-2 text-lg font-semibold text-sky-900 transition ease-in-out hover:scale-105 active:scale-100'>
+							<button className='flex items-center gap-2 rounded bg-sky-600 px-4 py-2 transition hover:scale-105 active:scale-100'>
 								My Games
 							</button>
 						</Link>
@@ -34,8 +34,8 @@ const Home: NextPage = () => {
 				<br />
 				<p>
 					Teams was build from watching the frustrations of Verena, a youth
-					leader who would expend way to much effort organising the youth into
-					groups to start a game
+					leader who would expend way too much effort organising the youth into
+					groups to start a game.
 				</p>
 				<br />
 				<p>
