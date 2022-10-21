@@ -32,6 +32,7 @@ const NewGame: NextPage = () => {
 	} = useForm<z.infer<typeof schema>>({
 		resolver: zodResolver(schema),
 		mode: 'onChange',
+		defaultValues: { requireNames: true },
 	});
 	const { isLoading, mutate } = trpc.useMutation(['game.new'], {
 		onError: (error) => {

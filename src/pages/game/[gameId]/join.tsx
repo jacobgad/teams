@@ -33,6 +33,7 @@ const Join: NextPage = () => {
 	const { data, isLoading: isLoadingGame } = trpc.useQuery(
 		['member.getGame', { gameId, memberId: member?.id }],
 		{
+			refetchInterval: 5000,
 			onSuccess: (data) => {
 				if (data.game.requireNames) return setMessage('Enter Name');
 				mutate({ gameId, member: member ?? undefined });

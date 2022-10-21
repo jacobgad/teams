@@ -26,7 +26,7 @@ const Game: NextPage = () => {
 	const { data } = trpc.useQuery(
 		['game.get', { gameId: paramToString(gameId) }],
 		{
-			refetchInterval: 4000,
+			refetchInterval: 5000,
 			onError: (error) => {
 				toast.error(error.message);
 				if (error.data?.code === 'NOT_FOUND') router.push('/game');
