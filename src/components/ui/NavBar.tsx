@@ -1,8 +1,9 @@
 import { HomeIcon } from '@heroicons/react/24/solid';
-import { signOut, signIn, useSession } from 'next-auth/react';
+import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import toast from 'react-hot-toast';
+import AuthButton from './AuthButton';
 
 export default function NavBar() {
 	const session = useSession();
@@ -15,7 +16,11 @@ export default function NavBar() {
 				</button>
 			</Link>
 			{session.status === 'authenticated' && (
-				<div className='flex items-center gap-4'>
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					className='flex items-center gap-4'
+				>
 					<Image
 						src={
 							session.data?.user?.image
@@ -30,32 +35,9 @@ export default function NavBar() {
 						alt='user image'
 					/>
 					<p>{session.data?.user?.name}</p>
-				</div>
+				</motion.div>
 			)}
-			{session.status === 'authenticated' ? (
-				<Link href={'/'}>
-					<button
-						onClick={() => signOut()}
-						className='hover:text-bg-slate-800 ring-slate-40 rounded px-3 py-2 ring-1 hover:bg-slate-400 hover:bg-opacity-25 active:scale-95'
-					>
-						Sign Out
-					</button>
-				</Link>
-			) : (
-				<button
-					onClick={() => {
-						const promise = signIn('google');
-						toast.promise(promise, {
-							loading: 'Checking with google...',
-							success: 'Welcome',
-							error: 'Oops there was an error',
-						});
-					}}
-					className='rounded bg-sky-600 px-5 py-2 hover:bg-sky-400 hover:text-black active:scale-95'
-				>
-					Sign In
-				</button>
-			)}
+			<AuthButton />
 		</nav>
 	);
 }

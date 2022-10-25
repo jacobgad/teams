@@ -3,6 +3,7 @@ import Head from 'next/head';
 import NavBar from 'components/ui/NavBar';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import { motion } from 'framer-motion';
 
 const Home: NextPage = () => {
 	const session = useSession();
@@ -21,9 +22,13 @@ const Home: NextPage = () => {
 					<h1 className='text-center text-4xl'>Teams</h1>
 					{session.status === 'authenticated' && (
 						<Link href='/game'>
-							<button className='flex items-center gap-2 rounded bg-sky-600 px-4 py-2 transition  active:scale-95'>
+							<motion.button
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								className='flex items-center gap-2 rounded bg-sky-600 px-4 py-2 transition  active:scale-95'
+							>
 								My Games
-							</button>
+							</motion.button>
 						</Link>
 					)}
 				</div>
