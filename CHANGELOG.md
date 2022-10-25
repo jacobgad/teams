@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/jacobgad/teams/compare/v1.0.0...v1.0.1) (2022-10-25)
+
+
+### Bug Fixes
+
+* :bug: handle auth button loading state ([c23dcca](https://github.com/jacobgad/teams/commit/c23dcca09fcdeb882235960c25245075abd51aeb))
+
 ## 1.0.0 (2022-10-24)
 
 
