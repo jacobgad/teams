@@ -48,9 +48,7 @@ const Join: NextPage = () => {
 
 	const team = useMemo(
 		() =>
-			data?.team?.id
-				? teamOptions.at(data.team.id % teamOptions.length)!
-				: null,
+			data?.team?.id ? teamOptions[data.team.id % teamOptions.length] : null,
 		[data]
 	);
 
@@ -70,7 +68,7 @@ const Join: NextPage = () => {
 						)}
 					</div>
 					<h1 className='text-center text-5xl'>
-						{team === null ? message : `Team ${team.name}`}
+						{team === null ? message : `Team ${team?.name}`}
 					</h1>
 
 					{isLoadingGame && !isLoading && <Spinner />}

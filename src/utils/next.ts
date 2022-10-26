@@ -3,6 +3,6 @@ export default function paramToString(
 ): string {
 	if (!param) return '';
 	if (typeof param === 'string') return param;
-	if (param.length > 0) return param.at(-1)!;
+	if (param.length > 0) return param.at(-1) ?? '';
 	return '';
 }

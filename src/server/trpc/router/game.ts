@@ -32,7 +32,7 @@ export const gameRouter = router({
 		)
 		.mutation(({ ctx, input }) => {
 			return ctx.prisma.game.create({
-				data: { ...input, userId: ctx.session.user.id! },
+				data: { ...input, userId: ctx.session.user.id },
 			});
 		}),
 
