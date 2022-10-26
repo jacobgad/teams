@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/jacobgad/teams/compare/v1.0.1...v1.1.0) (2022-10-26)
+
+
+### Features
+
+* :sparkles: complete transition to tRPC v10 ([b4da2b3](https://github.com/jacobgad/teams/commit/b4da2b32abfe2cc26c67c8692b035377fbfaab0f))
+
 ## [1.0.1](https://github.com/jacobgad/teams/compare/v1.0.0...v1.0.1) (2022-10-25)
 
 
