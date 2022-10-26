@@ -18,10 +18,10 @@ const Join: NextPage = () => {
 	const [message, setMessage] = useState('Finding Team');
 	const [member, setMember] = useLocalStorage<Member | null>('member', null);
 
-	const { mutate, isLoading } = trpc.useMutation(['member.joinGame'], {
+	const { mutate, isLoading } = trpc.member.joinGame.useMutation({
 		onSuccess: (data) => {
 			if (!isEqualObject(data, member)) setMember(data);
-			utils.invalidateQueries(['member.getGame']);
+			utils.member.getGame.invalidate();
 		},
 		onError: (error) => {
 			if (error instanceof Error) {
@@ -30,8 +30,8 @@ const Join: NextPage = () => {
 		},
 	});
 
-	const { data, isLoading: isLoadingGame } = trpc.useQuery(
-		['member.getGame', { gameId, memberId: member?.id }],
+	const { data, isLoading: isLoadingGame } = trpc.member.getGame.useQuery(
+		{ gameId, memberId: member?.id },
 		{
 			refetchInterval: 5000,
 			onSuccess: (data) => {

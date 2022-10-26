@@ -23,8 +23,8 @@ function getJoinUrl(gameId: string) {
 const Game: NextPage = () => {
 	const router = useRouter();
 	const gameId = router.query.gameId as string;
-	const { data } = trpc.useQuery(
-		['game.get', { gameId: paramToString(gameId) }],
+	const { data } = trpc.game.get.useQuery(
+		{ gameId: paramToString(gameId) },
 		{
 			refetchInterval: 5000,
 			onError: (error) => {

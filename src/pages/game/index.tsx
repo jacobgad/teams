@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const Games: NextPage = () => {
-	const { data, isLoading } = trpc.useQuery(['game.getAll'], {
+	const { data, isLoading } = trpc.game.getAll.useQuery(undefined, {
 		onError: (error) => toast.error(error.message),
 	});
 

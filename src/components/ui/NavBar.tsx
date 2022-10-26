@@ -29,8 +29,8 @@ export default function NavBar() {
 										session.data?.user?.email?.split('@')[0]
 								  }.svg`
 						}
-						width='40px'
-						height='40px'
+						width={40}
+						height={40}
 						className='rounded-full'
 						alt='user image'
 					/>

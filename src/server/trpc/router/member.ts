@@ -1,15 +1,17 @@
-import { createRouter } from './context';
-import { z } from 'zod';
 import { Member } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
+import { z } from 'zod';
+import { publicProcedure, router } from '../trpc';
 
-export const memebrRouter = createRouter()
-	.query('getGame', {
-		input: z.object({
-			gameId: z.string().cuid(),
-			memberId: z.string().uuid().optional(),
-		}),
-		async resolve({ ctx, input }) {
+export const memberRouter = router({
+	getGame: publicProcedure
+		.input(
+			z.object({
+				gameId: z.string().cuid(),
+				memberId: z.string().uuid().optional(),
+			})
+		)
+		.query(async ({ ctx, input }) => {
 			const game = await ctx.prisma.game.findUnique({
 				where: { id: input.gameId },
 				include: {
@@ -30,20 +32,21 @@ export const memebrRouter = createRouter()
 			);
 			const { id, name, requireNames } = game;
 			return { game: { id, name, requireNames }, team };
-		},
-	})
-
-	.mutation('joinGame', {
-		input: z.object({
-			gameId: z.string().cuid(),
-			member: z
-				.object({
-					id: z.string().uuid().optional(),
-					name: z.string().min(3).max(20),
-				})
-				.optional(),
 		}),
-		async resolve({ ctx, input }): Promise<Member> {
+
+	joinGame: publicProcedure
+		.input(
+			z.object({
+				gameId: z.string().cuid(),
+				member: z
+					.object({
+						id: z.string().uuid().optional(),
+						name: z.string().min(3).max(20),
+					})
+					.optional(),
+			})
+		)
+		.mutation(async ({ ctx, input }): Promise<Member> => {
 			const game = await ctx.prisma.game.findUnique({
 				where: { id: input.gameId },
 				include: { Teams: { include: { members: true } } },
@@ -100,5 +103,5 @@ export const memebrRouter = createRouter()
 				data: { members: { connect: { id: member.id } } },
 			});
 			return member;
-		},
-	});
+		}),
+});

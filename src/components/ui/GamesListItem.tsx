@@ -10,19 +10,19 @@ interface Props {
 
 export default function GamesListItem({ game }: Props) {
 	const utils = trpc.useContext();
-	const { isLoading, mutate } = trpc.useMutation(['game.delete'], {
+	const { isLoading, mutate } = trpc.game.delete.useMutation({
 		onError: (error) => {
 			toast.error(error.message);
 		},
 		onSuccess: (data) => {
 			toast.success(`Deleted ${data.name}`);
-			utils.invalidateQueries(['game.getAll']);
+			utils.game.getAll.invalidate();
 		},
 	});
 
 	return (
 		<div className='flex h-full gap-4'>
-			<Link href={`/game/${game.id}`}>
+			<Link href={`/game/${game.id}`} className='w-full'>
 				<button
 					disabled={isLoading}
 					className='ease-outhover:bg-gray-600 flex w-full justify-between rounded-full bg-gray-700 px-8 py-4 transition active:scale-95 disabled:bg-gray-800'

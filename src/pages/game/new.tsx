@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const schema = z.object({
 	name: z.string().min(4),
 	teamCount: z.number().min(2).max(teamOptions.length),
-	requireNames: z.boolean().default(false),
+	requireNames: z.boolean(),
 });
 
 const NewGame: NextPage = () => {
@@ -34,7 +34,7 @@ const NewGame: NextPage = () => {
 		mode: 'onChange',
 		defaultValues: { requireNames: true },
 	});
-	const { isLoading, mutate } = trpc.useMutation(['game.new'], {
+	const { isLoading, mutate } = trpc.game.new.useMutation({
 		onError: (error) => {
 			toast.error(error.message);
 		},
@@ -79,7 +79,7 @@ const NewGame: NextPage = () => {
 						<input
 							id='requireNames'
 							type='checkbox'
-							{...register('requireNames', { valueAsNumber: true })}
+							{...register('requireNames')}
 							className='mr-1 h-5 w-5 rounded'
 						/>
 					</div>

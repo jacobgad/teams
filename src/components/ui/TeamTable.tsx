@@ -27,12 +27,12 @@ export default function TeamTable({ team, theme }: Props) {
 			</div>
 			<ul className='w-full'>
 				{team.members.map((member, i) => (
-					<>
+					<li key={member.id}>
 						{i !== 0 && <hr className={options?.color.border} />}
-						<li key={member.id} className={`w-full py-1 text-center`}>
+						<p className={`w-full py-1 text-center`}>
 							{member.name ? member.name : member.id}
-						</li>
-					</>
+						</p>
+					</li>
 				))}
 			</ul>
 		</div>
