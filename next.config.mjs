@@ -1,4 +1,6 @@
-import { env } from './src/env/server.mjs';
+// @ts-check
+/* run the build with this set to skip validation */
+!process.env.SKIP_ENV_VALIDATION && (await import('./src/env/server.mjs'));
 
 /**
  * Don't be scared of the generics here.
@@ -15,6 +17,15 @@ function defineNextConfig(config) {
 export default defineNextConfig({
 	reactStrictMode: true,
 	swcMinify: true,
+	/** Next.js i18n docs:
+	 * @see https://nextjs.org/docs/advanced-features/i18n-routing
+	 * Reference repo for i18n:
+	 * @see https://github.com/juliusmarminge/t3-i18n
+	 **/
+	i18n: {
+		locales: ['en'],
+		defaultLocale: 'en',
+	},
 	images: {
 		domains: ['lh3.googleusercontent.com', 'avatars.dicebear.com'],
 	},

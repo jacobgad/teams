@@ -1,6 +1,8 @@
 {
-	"extends": ["next/core-web-vitals"],
-	"rules": {
-		"react/no-unknown-property": "off" //v1.3.0 -> v1.3.1: Invalid property 'fill' found on tag 'path', but it is only allowed on: svg
-	}
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint"],
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"]
 }
