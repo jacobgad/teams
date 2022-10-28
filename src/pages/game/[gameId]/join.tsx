@@ -94,7 +94,7 @@ const Join: NextPage = () => {
 								color: {
 									main: 'bg-slate-600',
 									dark: 'bg-slate-700',
-									border: 'border-slate-700',
+									divide: 'divide-slate-700',
 								},
 							}}
 						/>

@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { teamOptions } from 'utils/teams';
 import TextField from 'components/ui/TextField';
 import { getSession } from 'next-auth/react';
-import NavBar from 'components/ui/NavBar';
+import NavBar from 'components/ui/layout/NavBar';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);

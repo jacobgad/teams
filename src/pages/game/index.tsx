@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { getSession } from 'next-auth/react';
 import { useMemo } from 'react';
-import NavBar from 'components/ui/NavBar';
+import NavBar from 'components/ui/layout/NavBar';
 import { Spinner } from 'components/ui/Loading';
 import toast from 'react-hot-toast';
 import { trpc } from 'utils/trpc';

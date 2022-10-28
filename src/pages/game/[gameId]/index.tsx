@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { env } from 'env/client.mjs';
 import paramToString from 'utils/next';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/solid';
-import NavBar from 'components/ui/NavBar';
+import NavBar from 'components/ui/layout/NavBar';
 import { getSession } from 'next-auth/react';
 import TeamTable from 'components/ui/TeamTable';
 

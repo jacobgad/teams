@@ -25,13 +25,10 @@ export default function TeamTable({ team, theme }: Props) {
 				<p>{options?.name}</p>
 				<p>{team.members.length}</p>
 			</div>
-			<ul className='w-full'>
-				{team.members.map((member, i) => (
-					<li key={member.id}>
-						{i !== 0 && <hr className={options?.color.border} />}
-						<p className={`w-full py-1 text-center`}>
-							{member.name ? member.name : member.id}
-						</p>
+			<ul className={`w-full divide-y ${options?.color.divide}`}>
+				{team.members.map((member) => (
+					<li key={member.id} className={`w-full py-1 text-center`}>
+						{member.name ? member.name : member.id}
 					</li>
 				))}
 			</ul>
