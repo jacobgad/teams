@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/jacobgad/teams/compare/v1.2.0...v1.2.1) (2022-11-17)
+
+
+### Performance Improvements
+
+* :zap: use hidden in next link to not block prefetch ([a2ce041](https://github.com/jacobgad/teams/commit/a2ce041751134cd93a7cef3ccc52c43e686ee663))
+
 ## [1.2.0](https://github.com/jacobgad/teams/compare/v1.1.0...v1.2.0) (2022-10-29)
 
 
