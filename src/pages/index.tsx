@@ -20,17 +20,15 @@ const Home: NextPage = () => {
 			<main className='container mx-auto max-w-lg p-5 pb-16'>
 				<div className='mb-6 flex justify-between'>
 					<h1 className='text-center text-4xl'>Teams</h1>
-					{session.status === 'authenticated' && (
-						<Link href='/game'>
-							<motion.button
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								className='flex items-center gap-2 rounded bg-sky-600 px-4 py-2 transition  active:scale-95'
-							>
-								My Games
-							</motion.button>
-						</Link>
-					)}
+					<Link href='/game' hidden={session.status !== 'authenticated'}>
+						<motion.button
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							className='flex items-center gap-2 rounded bg-sky-600 px-4 py-2 transition  active:scale-95'
+						>
+							My Games
+						</motion.button>
+					</Link>
 				</div>
 				<p>
 					Teams is a fast way to split up a group of people into random teams,
