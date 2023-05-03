@@ -1,0 +1,31 @@
+name: 'CI'
+
+on: push
+
+env:
+  DATABASE_URL: postgresql://postgres:password@localhost:5432/teams
+  NEXT_PUBLIC_VERCEL_URL: http://localhost:3000
+  GOOGLE_CLIENT_SECRET: secret
+  GOOGLE_CLIENT_ID: client_id.apps.googleusercontent.com
+  NEXTAUTH_URL: http://localhost:3000
+  NEXTAUTH_SECRET: secret
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Typecheck code
+        run: npm run typecheck
+
+      - name: Check code format
+        run: npm run format:check
+
+      - name: Check code linting
+        run: npm run lint

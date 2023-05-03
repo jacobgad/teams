@@ -63,7 +63,7 @@ export const memberRouter = router({
 			}
 
 			async function getMember(
-				member: typeof input['member']
+				member: (typeof input)['member']
 			): Promise<Member> {
 				if (!member?.id)
 					return ctx.prisma.member.create({ data: { name: member?.name } });
