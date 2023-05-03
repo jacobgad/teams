@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/jacobgad/teams/compare/v1.2.1...v1.2.2) (2023-05-03)
+
+
+### Performance Improvements
+
+* :zap: switch to prisma jsonProtocol ([3faa581](https://github.com/jacobgad/teams/commit/3faa58174720f9c472af4650a097c0dd3721bce6))
+
 ## [1.2.1](https://github.com/jacobgad/teams/compare/v1.2.0...v1.2.1) (2022-11-17)
 
 
