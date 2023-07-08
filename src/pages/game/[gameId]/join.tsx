@@ -87,17 +87,7 @@ const Join: NextPage = () => {
 						</div>
 					)}
 					{data?.game.requireNames && data?.team && (
-						<TeamTable
-							team={data.team}
-							theme={{
-								name: 'Members',
-								color: {
-									main: 'bg-slate-600',
-									dark: 'bg-slate-700',
-									divide: 'divide-slate-700',
-								},
-							}}
-						/>
+						<TeamTable team={data.team} theme={teamOptions[0]} />
 					)}
 				</main>
 			</div>
