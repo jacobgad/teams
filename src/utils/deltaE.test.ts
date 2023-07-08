@@ -13,7 +13,7 @@ describe('Delta-E color comparison function', () => {
 		expect(distance).toBe(0);
 	});
 
-	it('should be zero if same color', () => {
+	it('should be 100% if exact opposite colors', () => {
 		const distance = deltaE(color1, color2);
 		expect(distance.toFixed(3)).toBe('100.000');
 	});
