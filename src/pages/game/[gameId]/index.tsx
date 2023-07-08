@@ -79,7 +79,7 @@ const Game: NextPage = () => {
 
 				<ul className='mt-5 grid gap-8'>
 					{data?.Teams.map((team) => (
-						<TeamTable key={team.id} team={team} />
+						<TeamTable key={team.id} team={team} theme={team.theme} />
 					))}
 				</ul>
 			</main>

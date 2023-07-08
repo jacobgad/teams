@@ -8,7 +8,7 @@ export interface TeamOption {
 	};
 }
 
-export const teamOptions: TeamOption[] = [
+export const teamOptions = [
 	{
 		name: 'Slate',
 		rgb: { r: 71, g: 85, b: 105 },
@@ -189,4 +189,4 @@ export const teamOptions: TeamOption[] = [
 			divide: 'divide-rose-700',
 		},
 	},
-];
+] as const satisfies readonly TeamOption[];

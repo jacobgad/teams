@@ -2,6 +2,7 @@ import { TRPCError } from '@trpc/server';
 import { teamOptions } from 'utils/teams';
 import { z } from 'zod';
 import { router, protectedProcedure } from '../trpc';
+import { getTeamTheme } from 'utils/getTeamTheme';
 
 export const gameRouter = router({
 	getAll: protectedProcedure.query(({ ctx }) => {
@@ -15,11 +16,26 @@ export const gameRouter = router({
 		.query(async ({ ctx, input }) => {
 			const game = await ctx.prisma.game.findUnique({
 				where: { id: input.gameId },
-				include: { Teams: { include: { members: true } } },
+				include: {
+					Teams: { include: { members: true }, orderBy: { createdAt: 'asc' } },
+				},
 			});
 			if (!game)
 				throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
-			return game;
+
+			const userGames = await ctx.prisma.game.findMany({
+				where: { userId: ctx.session.user.id },
+				select: { id: true },
+				orderBy: { createdAt: 'asc' },
+			});
+
+			const gameId = userGames.findIndex((game) => game.id === input.gameId);
+			const teams = game.Teams.map((team, idx) => ({
+				...team,
+				theme: getTeamTheme(gameId, idx),
+			}));
+
+			return { ...game, Teams: teams };
 		}),
 
 	new: protectedProcedure
