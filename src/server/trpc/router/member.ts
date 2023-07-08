@@ -2,6 +2,7 @@ import { Member } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 import { publicProcedure, router } from '../trpc';
+import { getTeamTheme } from 'utils/getTeamTheme';
 
 export const memberRouter = router({
 	getGame: publicProcedure
@@ -21,6 +22,7 @@ export const memberRouter = router({
 								orderBy: { name: 'asc' },
 							},
 						},
+						orderBy: { createdAt: 'asc' },
 					},
 				},
 			});
@@ -30,8 +32,19 @@ export const memberRouter = router({
 			const team = game.Teams.find((team) =>
 				team.members.some((member) => member.id === input.memberId)
 			);
+			const userGames = await ctx.prisma.game.findMany({
+				where: { userId: game.userId },
+				select: { id: true },
+				orderBy: { createdAt: 'asc' },
+			});
+			const gameId = userGames.findIndex((game) => game.id === input.gameId);
+			const teamId = game.Teams.findIndex((t) => t.id === team?.id);
+			const teamWithTheme = team
+				? { ...team, theme: getTeamTheme(gameId, teamId) }
+				: team;
+
 			const { id, name, requireNames } = game;
-			return { game: { id, name, requireNames }, team };
+			return { game: { id, name, requireNames }, team: teamWithTheme };
 		}),
 
 	joinGame: publicProcedure

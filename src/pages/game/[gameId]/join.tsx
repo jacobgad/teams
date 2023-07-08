@@ -33,6 +33,7 @@ const Join: NextPage = () => {
 	const { data, isLoading: isLoadingGame } = trpc.member.getGame.useQuery(
 		{ gameId, memberId: member?.id },
 		{
+			enabled: !!gameId,
 			refetchInterval: 5000,
 			onSuccess: (data) => {
 				if (data.game.requireNames) return setMessage('Enter Name');
@@ -46,11 +47,7 @@ const Join: NextPage = () => {
 		}
 	);
 
-	const team = useMemo(
-		() =>
-			data?.team?.id ? teamOptions[data.team.id % teamOptions.length] : null,
-		[data]
-	);
+	const team = useMemo(() => data?.team ?? null, [data?.team]);
 
 	return (
 		<>
@@ -60,7 +57,7 @@ const Join: NextPage = () => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<div className={`h-[100vh] ${team?.color.main}`}>
+			<div className={`h-[100vh] ${team?.theme?.color.main}`}>
 				<main className='container mx-auto grid w-full max-w-xs justify-items-center gap-10 pt-10'>
 					<div className='h-9'>
 						{data?.game && (
@@ -68,7 +65,7 @@ const Join: NextPage = () => {
 						)}
 					</div>
 					<h1 className='text-center text-5xl'>
-						{team === null ? message : `Team ${team?.name}`}
+						{team === null ? message : `Team ${team.theme?.name}`}
 					</h1>
 
 					{isLoadingGame && !isLoading && <Spinner />}

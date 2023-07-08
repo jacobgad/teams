@@ -6,7 +6,7 @@ export function getTeamTheme(gameId: number, teamNumber: number) {
 	if (!rootTheme) throw new Error('Unable to find root theme');
 	if (teamNumber === 0) return rootTheme;
 
-	const activeThemes = [rootTheme];
+	const activeThemes: TeamOption[] = [rootTheme];
 	for (let i = 0; i < teamNumber; i++) {
 		const theme = getNextTheme(activeThemes);
 		activeThemes.push(theme);

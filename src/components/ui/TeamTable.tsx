@@ -1,5 +1,5 @@
 import { Member, Team } from '@prisma/client';
-import { TeamOption, teamOptions } from 'utils/teams';
+import { TeamOption } from 'utils/teams';
 
 interface TeamWithMembers extends Team {
 	members: Member[];
@@ -7,25 +7,23 @@ interface TeamWithMembers extends Team {
 
 interface Props {
 	team: TeamWithMembers;
-	theme?: TeamOption;
+	theme: TeamOption;
 }
 
 export default function TeamTable({ team, theme }: Props) {
-	const options = theme ? theme : teamOptions[team.id % teamOptions.length];
-
 	return (
 		<div
 			className={`w-full overflow-hidden rounded-lg shadow-xl transition ease-in-out hover:-translate-y-1 
-			${options?.color.main}`}
+			${theme.color.main}`}
 		>
 			<div
 				className={`flex w-full items-center justify-between px-3 py-1 text-lg 
-				${options?.color.dark}`}
+				${theme.color.dark}`}
 			>
-				<p>{options?.name}</p>
+				<p>{theme.name}</p>
 				<p>{team.members.length}</p>
 			</div>
-			<ul className={`w-full divide-y ${options?.color.divide}`}>
+			<ul className={`w-full divide-y ${theme.color.divide}`}>
 				{team.members.map((member) => (
 					<li key={member.id} className={`w-full py-1 text-center`}>
 						{member.name ? member.name : member.id}
