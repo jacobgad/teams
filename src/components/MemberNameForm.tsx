@@ -26,12 +26,7 @@ export default function MemberNameForm(props: Props) {
 
 	return (
 		<form onSubmit={handleSubmit(props.onSubmit)} className='w-full'>
-			<TextField
-				id='name'
-				type='text'
-				{...register('name')}
-				error={errors.name?.message}
-			/>
+			<TextField id='name' type='text' {...register('name')} error={errors.name?.message} />
 			<button
 				type='submit'
 				disabled={!isValid || props.isLoading}

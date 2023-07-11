@@ -46,9 +46,7 @@ export default function UserMenu() {
 				animate={{ opacity: 1, scale: 1 }}
 				className='absolute right-0 grid w-36 divide-y overflow-hidden rounded bg-slate-100 p-1 text-black shadow-lg'
 			>
-				<p className='rounded px-2 py-1 text-center font-medium'>
-					{session.data?.user?.name}
-				</p>
+				<p className='rounded px-2 py-1 text-center font-medium'>{session.data?.user?.name}</p>
 				{menuItems.map((menuItem) => (
 					<Menu.Item key={menuItem.id}>
 						{({ active }) => (
@@ -58,9 +56,7 @@ export default function UserMenu() {
 									active && 'bg-sky-600 text-white'
 								}`}
 							>
-								<div className={`h-6 ${active && 'text-white'}`}>
-									{menuItem.icon}
-								</div>
+								<div className={`h-6 ${active && 'text-white'}`}>{menuItem.icon}</div>
 								{menuItem.name}
 							</button>
 						)}

@@ -60,9 +60,7 @@ const Join: NextPage = () => {
 			<div className={`h-[100vh] ${team?.theme?.color.main}`}>
 				<main className='container mx-auto grid w-full max-w-xs justify-items-center gap-10 pt-10'>
 					<div className='h-9'>
-						{data?.game && (
-							<h2 className='text-center text-3xl'>{data.game.name}</h2>
-						)}
+						{data?.game && <h2 className='text-center text-3xl'>{data.game.name}</h2>}
 					</div>
 					<h1 className='text-center text-5xl'>
 						{team === null ? message : `Team ${team.theme?.name}`}

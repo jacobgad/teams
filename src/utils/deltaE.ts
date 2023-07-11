@@ -26,8 +26,7 @@ export function deltaE(rgbA: RGBValue, rgbB: RGBValue) {
 	const deltaCkcsc = deltaC / sc;
 	const deltaHkhsh = deltaH / sh;
 
-	const i =
-		deltaLKlsl * deltaLKlsl + deltaCkcsc * deltaCkcsc + deltaHkhsh * deltaHkhsh;
+	const i = deltaLKlsl * deltaLKlsl + deltaCkcsc * deltaCkcsc + deltaHkhsh * deltaHkhsh;
 
 	return i < 0 ? 0 : Math.sqrt(i);
 }

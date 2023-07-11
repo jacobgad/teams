@@ -20,8 +20,7 @@ export const gameRouter = router({
 					Teams: { include: { members: true }, orderBy: { createdAt: 'asc' } },
 				},
 			});
-			if (!game)
-				throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
+			if (!game) throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
 
 			const userGames = await ctx.prisma.game.findMany({
 				where: { userId: ctx.session.user.id },
@@ -62,8 +61,7 @@ export const gameRouter = router({
 			const game = await ctx.prisma.game.findUnique({
 				where: { id: input.gameId },
 			});
-			if (!game)
-				throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
+			if (!game) throw new TRPCError({ code: 'NOT_FOUND', message: 'Game not found' });
 			if (game.userId !== ctx.session.user.id)
 				return new TRPCError({
 					code: 'UNAUTHORIZED',
@@ -76,10 +74,7 @@ export const gameRouter = router({
 				where: { id: input.gameId },
 				include: { Teams: true },
 			});
-			const transaction = await ctx.prisma.$transaction([
-				deleteTeams,
-				deleteGame,
-			]);
+			const transaction = await ctx.prisma.$transaction([deleteTeams, deleteGame]);
 			return transaction[1];
 		}),
 });

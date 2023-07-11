@@ -24,9 +24,7 @@ const Games: NextPage = () => {
 
 	const sortedData = useMemo(() => {
 		if (!data) return [];
-		return data.sort(
-			(pre, cur) => cur.createdAt.getTime() - pre.createdAt.getTime()
-		);
+		return data.sort((pre, cur) => cur.createdAt.getTime() - pre.createdAt.getTime());
 	}, [data]);
 
 	return (

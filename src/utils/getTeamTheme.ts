@@ -29,8 +29,7 @@ function getNextTheme(activeThemes: TeamOption[]) {
 		for (const activeTheme of activeThemes) {
 			distance += deltaE(availableTheme.rgb, activeTheme.rgb);
 		}
-		if (distance > nextTheme.distance)
-			nextTheme = { theme: availableTheme, distance };
+		if (distance > nextTheme.distance) nextTheme = { theme: availableTheme, distance };
 	}
 
 	if (!nextTheme.theme) throw new Error('Next theme not found');

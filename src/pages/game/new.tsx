@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -23,21 +23,17 @@ const schema = z.object({
 	requireNames: z.boolean(),
 });
 
-const NewGame: NextPage = () => {
+export default function NewGame() {
 	const router = useRouter();
-	const {
-		register,
-		formState: { errors, isValid },
-		handleSubmit,
-	} = useForm<z.infer<typeof schema>>({
+
+	const { register, formState, handleSubmit } = useForm<z.infer<typeof schema>>({
 		resolver: zodResolver(schema),
 		mode: 'onChange',
 		defaultValues: { requireNames: true },
 	});
+
 	const { isLoading, mutate } = trpc.game.new.useMutation({
-		onError: (error) => {
-			toast.error(error.message);
-		},
+		onError: (error) => toast.error(error.message),
 		onSuccess: (data) => {
 			toast.success(`Game ${data.name} Created`);
 			router.push(`/game/${data.id}`);
@@ -65,14 +61,14 @@ const NewGame: NextPage = () => {
 						type='text'
 						label='Name of Game'
 						{...register('name')}
-						error={errors.name?.message}
+						error={formState.errors.name?.message}
 					/>
 					<TextField
 						id='teamCount'
 						type='number'
 						label='Number of Teams'
 						{...register('teamCount', { valueAsNumber: true })}
-						error={errors.teamCount?.message}
+						error={formState.errors.teamCount?.message}
 					/>
 					<div className='flex w-full items-center justify-between'>
 						<label htmlFor='requireNames'>Require Names</label>
@@ -85,7 +81,7 @@ const NewGame: NextPage = () => {
 					</div>
 					<button
 						type='submit'
-						disabled={!isValid || isLoading}
+						disabled={!formState.isValid || isLoading}
 						className='mt-4 w-2/3 rounded-lg bg-sky-600 py-2 shadow shadow-sky-600 hover:bg-sky-700 disabled:bg-sky-900 disabled:text-gray-400 disabled:shadow-none'
 					>
 						{isLoading ? 'Loading...' : 'Create'}
@@ -94,6 +90,4 @@ const NewGame: NextPage = () => {
 			</main>
 		</>
 	);
-};
-
-export default NewGame;
+}

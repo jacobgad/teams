@@ -31,19 +31,18 @@ const Home: NextPage = () => {
 					</Link>
 				</div>
 				<p>
-					Teams is a fast way to split up a group of people into random teams,
-					just create a game and share the link.
+					Teams is a fast way to split up a group of people into random teams, just create a game
+					and share the link.
 				</p>
 				<br />
 				<p>
-					Teams was build from watching the frustrations of Verena, a youth
-					leader who would expend way too much effort organising the youth into
-					groups to start a game.
+					Teams was build from watching the frustrations of Verena, a youth leader who would expend
+					way too much effort organising the youth into groups to start a game.
 				</p>
 				<br />
 				<p>
-					I pray that this app means for you, less time organising and more time
-					having fun with friends.
+					I pray that this app means for you, less time organising and more time having fun with
+					friends.
 				</p>
 			</main>
 		</>
