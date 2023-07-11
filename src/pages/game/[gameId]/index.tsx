@@ -70,9 +70,7 @@ const Game: NextPage = () => {
 						onClick={() => handleLinkClick(getJoinUrl(gameId))}
 						className='ease-outhover:bg-sky-700 my-5 flex w-3/4 items-center gap-4 rounded-lg bg-sky-800 px-4 transition-all active:scale-95'
 					>
-						<p className='overflow-hidden text-ellipsis'>
-							{getJoinUrl(gameId)}
-						</p>
+						<p className='overflow-hidden text-ellipsis'>{getJoinUrl(gameId)}</p>
 						<ClipboardDocumentIcon className='h-12' />
 					</button>
 				</div>

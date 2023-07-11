@@ -29,11 +29,7 @@ export default function NavBar() {
 				</motion.div>
 			)}
 			{session.status === 'authenticated' && (
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					className='flex items-center'
-				>
+				<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className='flex items-center'>
 					<UserMenu />
 				</motion.div>
 			)}

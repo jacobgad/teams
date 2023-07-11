@@ -39,9 +39,7 @@ export const memberRouter = router({
 			});
 			const gameId = userGames.findIndex((game) => game.id === input.gameId);
 			const teamId = game.Teams.findIndex((t) => t.id === team?.id);
-			const teamWithTheme = team
-				? { ...team, theme: getTeamTheme(gameId, teamId) }
-				: team;
+			const teamWithTheme = team ? { ...team, theme: getTeamTheme(gameId, teamId) } : team;
 
 			const { id, name, requireNames } = game;
 			return { game: { id, name, requireNames }, team: teamWithTheme };
@@ -75,11 +73,8 @@ export const memberRouter = router({
 				});
 			}
 
-			async function getMember(
-				member: (typeof input)['member']
-			): Promise<Member> {
-				if (!member?.id)
-					return ctx.prisma.member.create({ data: { name: member?.name } });
+			async function getMember(member: (typeof input)['member']): Promise<Member> {
+				if (!member?.id) return ctx.prisma.member.create({ data: { name: member?.name } });
 				const found = await ctx.prisma.member.findUnique({
 					where: { id: member.id },
 				});
@@ -93,9 +88,7 @@ export const memberRouter = router({
 
 			const member = await getMember(input.member);
 
-			const team = game.Teams.find((t) =>
-				t.members.find((m) => m.id === member.id)
-			);
+			const team = game.Teams.find((t) => t.members.find((m) => m.id === member.id));
 			if (team) return member;
 
 			if (game.Teams.length < game.teamCount) {
