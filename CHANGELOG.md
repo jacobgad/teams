@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0](https://github.com/jacobgad/teams/compare/v1.2.2...v1.3.0) (2023-07-11)
+
+
+### Features
+
+* :construction: add delta-e function ([12f5c94](https://github.com/jacobgad/teams/commit/12f5c94f5bffea21623ed97f02fe79f174e3beb6))
+* :construction: build out getNextTheme function using delta-e ([c6eeffb](https://github.com/jacobgad/teams/commit/c6eeffb33864436a80904429ce7d7c5592e18737))
+* :sparkles: add rgb values to team data ([ba364e9](https://github.com/jacobgad/teams/commit/ba364e9b0042a3579e3d09bc7491aa966c442f4e))
+
+
+### Bug Fixes
+
+* :bug: have variance in team themes ([6b7b436](https://github.com/jacobgad/teams/commit/6b7b43683ddd9b54bfae1e040905b272b3f84d9b))
+
 ## [1.2.2](https://github.com/jacobgad/teams/compare/v1.2.1...v1.2.2) (2023-05-03)
 
 
