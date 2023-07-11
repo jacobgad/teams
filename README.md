@@ -27,6 +27,35 @@ To run this project, you will need to add the following environment variables to
 `NEXTAUTH_URL`
 
 `NEXTAUTH_SECRET`
+
+## Developer Environment Setup
+
+1. Setup postgres in a docker container
+```bash
+docker run --name postgres -p 5432:5432 -v pgdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=password -d postgres
+```
+
+2. Clone the repo
+```bash
+git clone git@github.com:jacobgad/teams.git
+```
+
+3. Change directory into the teams folder and add the environment variables listed above to a .env file in the root directory.
+```bash
+cd teams
+touch .env
+```
+
+4. Install dependencies 
+```bash
+npm install
+```
+
+5. Run dev server
+```bash
+npm run dev
+```
+
 ## Acknowledgements
 
  - [create-t3-app](https://github.com/t3-oss/create-t3-app)
