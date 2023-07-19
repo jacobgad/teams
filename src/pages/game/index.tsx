@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { getSession } from 'next-auth/react';
 import { useMemo } from 'react';
@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	return { props: {} };
 };
 
-const Games: NextPage = () => {
+export default function Games() {
 	const { data, isLoading } = trpc.game.getAll.useQuery(undefined, {
 		onError: (error) => toast.error(error.message),
 	});
@@ -55,28 +55,12 @@ const Games: NextPage = () => {
 
 				<ul className='grid gap-4'>
 					<AnimatePresence>
-						{sortedData.map((game, idx) => (
+						{sortedData.map((game) => (
 							<motion.li
 								key={game.id}
-								custom={idx}
-								variants={{
-									hidden: (idx) => ({
-										opacity: 0,
-										y: -50 * idx,
-									}),
-									visible: (idx) => ({
-										opacity: 1,
-										y: 0,
-										transition: { delay: idx * 0.025 },
-									}),
-									removed: {
-										opacity: 0,
-										scale: 0,
-									},
-								}}
-								initial='hidden'
-								animate='visible'
-								exit='removed'
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0, scale: 0 }}
 								layout
 								transition={{ layout: { type: 'spring' } }}
 							>
@@ -88,6 +72,4 @@ const Games: NextPage = () => {
 			</main>
 		</>
 	);
-};
-
-export default Games;
+}

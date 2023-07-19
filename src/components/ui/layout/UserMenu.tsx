@@ -30,9 +30,9 @@ export default function UserMenu() {
 					src={
 						session.data?.user?.image
 							? session.data?.user.image
-							: `https://avatars.dicebear.com/api/bottts/${
-									session.data?.user?.email?.split('@')[0]
-							  }.svg`
+							: `https://avatars.dicebear.com/api/bottts/${session.data?.user?.email?.split(
+									'@'
+							  )[0]}.svg`
 					}
 					width={40}
 					height={40}

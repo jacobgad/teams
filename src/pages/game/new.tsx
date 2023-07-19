@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const schema = z.object({
-	name: z.string().min(4),
+	name: z.string().min(4, 'Name must be at least 4 characters'),
 	teamCount: z.number().min(2).max(teamOptions.length),
 	requireNames: z.boolean(),
 });
@@ -28,7 +28,7 @@ export default function NewGame() {
 
 	const { register, formState, handleSubmit } = useForm<z.infer<typeof schema>>({
 		resolver: zodResolver(schema),
-		mode: 'onChange',
+		mode: 'onTouched',
 		defaultValues: { requireNames: true },
 	});
 

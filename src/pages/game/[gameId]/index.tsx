@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { trpc } from '../../../utils/trpc';
 import toast from 'react-hot-toast';
@@ -20,7 +20,7 @@ function getJoinUrl(gameId: string) {
 	return env.NEXT_PUBLIC_VERCEL_URL + `/game/${gameId}/join`;
 }
 
-const Game: NextPage = () => {
+export default function Game() {
 	const router = useRouter();
 	const gameId = router.query.gameId as string;
 	const { data } = trpc.game.get.useQuery(
@@ -68,7 +68,7 @@ const Game: NextPage = () => {
 					<h2 className='w-1/4 text-xl'>Invite</h2>
 					<button
 						onClick={() => handleLinkClick(getJoinUrl(gameId))}
-						className='ease-outhover:bg-sky-700 my-5 flex w-3/4 items-center gap-4 rounded-lg bg-sky-800 px-4 transition-all active:scale-95'
+						className='my-5 flex w-3/4 items-center gap-4 rounded-lg bg-sky-800 px-4 transition-all ease-out hover:bg-sky-700 active:scale-95'
 					>
 						<p className='overflow-hidden text-ellipsis'>{getJoinUrl(gameId)}</p>
 						<ClipboardDocumentIcon className='h-12' />
@@ -76,13 +76,9 @@ const Game: NextPage = () => {
 				</div>
 
 				<ul className='mt-5 grid gap-8'>
-					{data?.Teams.map((team) => (
-						<TeamTable key={team.id} team={team} theme={team.theme} />
-					))}
+					{data?.Teams.map((team) => <TeamTable key={team.id} team={team} theme={team.theme} />)}
 				</ul>
 			</main>
 		</>
 	);
-};
-
-export default Game;
+}
