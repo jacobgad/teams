@@ -63,6 +63,7 @@ export default function Games() {
 								exit={{ opacity: 0, scale: 0 }}
 								layout
 								transition={{ layout: { type: 'spring' } }}
+								className='min-w-0'
 							>
 								<GamesListItem game={game} />
 							</motion.li>
