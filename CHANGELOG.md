@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/jacobgad/teams/compare/v1.3.1...v1.3.2) (2023-07-19)
+
+
+### Bug Fixes
+
+* :lipstick: game name overflow overlaps in index page ([7ce16aa](https://github.com/jacobgad/teams/commit/7ce16aac02a753f294b5fe0fc758766534fb1362))
+
 ## [1.3.1](https://github.com/jacobgad/teams/compare/v1.3.0...v1.3.1) (2023-07-19)
 
 
