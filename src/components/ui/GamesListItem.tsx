@@ -1,5 +1,5 @@
 import { ArrowPathIcon, TrashIcon } from '@heroicons/react/24/solid';
-import { Game } from '@prisma/client';
+import type { Game } from '@prisma/client';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { trpc } from 'utils/trpc';

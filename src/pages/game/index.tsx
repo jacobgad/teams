@@ -1,15 +1,15 @@
-import type { GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { getSession } from 'next-auth/react';
-import { useMemo } from 'react';
-import NavBar from 'components/ui/layout/NavBar';
-import { Spinner } from 'components/ui/Loading';
-import toast from 'react-hot-toast';
-import { trpc } from 'utils/trpc';
-import { PlusIcon } from '@heroicons/react/24/solid';
 import { AnimatePresence, motion } from 'framer-motion';
 import GamesListItem from '../../components/ui/GamesListItem';
+import type { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
+import NavBar from 'components/ui/layout/NavBar';
+import { PlusIcon } from '@heroicons/react/24/solid';
+import { Spinner } from 'components/ui/Loading';
+import { getSession } from 'next-auth/react';
+import toast from 'react-hot-toast';
+import { trpc } from 'utils/trpc';
+import { useMemo } from 'react';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);

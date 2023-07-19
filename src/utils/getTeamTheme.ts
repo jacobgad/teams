@@ -1,5 +1,6 @@
+import type { TeamOption } from './teams';
 import { deltaE } from './deltaE';
-import { TeamOption, teamOptions } from './teams';
+import { teamOptions } from './teams';
 
 export function getTeamTheme(gameId: number, teamNumber: number) {
 	const rootTheme = teamOptions[gameId % teamOptions.length];

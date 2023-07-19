@@ -1,9 +1,9 @@
 import { HomeIcon } from '@heroicons/react/24/solid';
-import { motion } from 'framer-motion';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import SignInButton from './SignInButton';
 import UserMenu from './UserMenu';
+import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 
 export default function NavBar() {
 	const session = useSession();

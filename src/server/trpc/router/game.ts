@@ -1,8 +1,8 @@
+import { protectedProcedure, router } from '../trpc';
 import { TRPCError } from '@trpc/server';
+import { getTeamTheme } from 'utils/getTeamTheme';
 import { teamOptions } from 'utils/teams';
 import { z } from 'zod';
-import { router, protectedProcedure } from '../trpc';
-import { getTeamTheme } from 'utils/getTeamTheme';
 
 export const gameRouter = router({
 	getAll: protectedProcedure.query(({ ctx }) => {

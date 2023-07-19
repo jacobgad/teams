@@ -1,14 +1,14 @@
+import { ClipboardDocumentIcon } from '@heroicons/react/24/solid';
 import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { trpc } from '../../../utils/trpc';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
-import { env } from 'env/client.mjs';
-import paramToString from 'utils/next';
-import { ClipboardDocumentIcon } from '@heroicons/react/24/solid';
 import NavBar from 'components/ui/layout/NavBar';
-import { getSession } from 'next-auth/react';
 import TeamTable from 'components/ui/TeamTable';
+import { env } from 'env/client.mjs';
+import { getSession } from 'next-auth/react';
+import paramToString from 'utils/next';
+import toast from 'react-hot-toast';
+import { trpc } from '../../../utils/trpc';
+import { useRouter } from 'next/router';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);

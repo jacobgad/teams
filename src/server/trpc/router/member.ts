@@ -1,8 +1,8 @@
-import { Member } from '@prisma/client';
-import { TRPCError } from '@trpc/server';
-import { z } from 'zod';
 import { publicProcedure, router } from '../trpc';
+import type { Member } from '@prisma/client';
+import { TRPCError } from '@trpc/server';
 import { getTeamTheme } from 'utils/getTeamTheme';
+import { z } from 'zod';
 
 export const memberRouter = router({
 	getGame: publicProcedure

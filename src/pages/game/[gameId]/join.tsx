@@ -1,15 +1,15 @@
-import { NextPage } from 'next';
+import { useMemo, useState } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import useLocalStorage from 'components/hooks/useLocalStorage';
+import type { Member } from '@prisma/client';
+import MemberNameForm from 'components/MemberNameForm';
+import type { NextPage } from 'next';
 import { Spinner } from 'components/ui/Loading';
+import TeamTable from 'components/ui/TeamTable';
+import { isEqualObject } from 'utils/members';
 import { teamOptions } from 'utils/teams';
 import { trpc } from 'utils/trpc';
-import { useMemo, useState } from 'react';
-import { Member } from '@prisma/client';
-import MemberNameForm from 'components/MemberNameForm';
-import { isEqualObject } from 'utils/members';
-import TeamTable from 'components/ui/TeamTable';
+import useLocalStorage from 'components/hooks/useLocalStorage';
+import { useRouter } from 'next/router';
 
 const Join: NextPage = () => {
 	const router = useRouter();

@@ -1,6 +1,6 @@
-import { sub } from 'date-fns';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from 'server/db/client';
+import { sub } from 'date-fns';
 
 const cleanUp = async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method === 'DELETE') {

@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { RGBValue, deltaE } from './deltaE';
+import { describe, expect, it } from 'vitest';
+import type { RGBValue } from './deltaE';
+import { deltaE } from './deltaE';
 
 describe('Delta-E color comparison function', () => {
 	const color1: RGBValue = { r: 255, g: 255, b: 255 };

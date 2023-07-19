@@ -1,8 +1,8 @@
-import { Menu } from '@headlessui/react';
-import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid';
-import { motion } from 'framer-motion';
 import { signOut, useSession } from 'next-auth/react';
+import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
+import { Menu } from '@headlessui/react';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 
 export default function UserMenu() {

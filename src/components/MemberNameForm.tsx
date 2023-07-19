@@ -1,7 +1,7 @@
-import { zodResolver } from '@hookform/resolvers/zod';
+import TextField from './ui/TextField';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import TextField from './ui/TextField';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 interface Props {
 	defaultName?: string;

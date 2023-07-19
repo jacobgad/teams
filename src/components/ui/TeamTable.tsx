@@ -1,5 +1,5 @@
-import { Member, Team } from '@prisma/client';
-import { TeamOption } from 'utils/teams';
+import type { Member, Team } from '@prisma/client';
+import type { TeamOption } from 'utils/teams';
 
 interface TeamWithMembers extends Team {
 	members: Member[];

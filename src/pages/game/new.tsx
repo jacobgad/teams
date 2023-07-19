@@ -1,15 +1,15 @@
 import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { trpc } from 'utils/trpc';
-import { zodResolver } from '@hookform/resolvers/zod';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
-import { teamOptions } from 'utils/teams';
+import NavBar from 'components/ui/layout/NavBar';
 import TextField from 'components/ui/TextField';
 import { getSession } from 'next-auth/react';
-import NavBar from 'components/ui/layout/NavBar';
+import { teamOptions } from 'utils/teams';
+import toast from 'react-hot-toast';
+import { trpc } from 'utils/trpc';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);

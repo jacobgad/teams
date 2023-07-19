@@ -1,7 +1,7 @@
 // src/server/trpc/router/_app.ts
-import { router } from '../trpc';
 import { gameRouter } from './game';
 import { memberRouter } from './member';
+import { router } from '../trpc';
 
 export const appRouter = router({
 	game: gameRouter,

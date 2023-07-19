@@ -1,9 +1,9 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
-import NavBar from 'components/ui/layout/NavBar';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import NavBar from 'components/ui/layout/NavBar';
+import type { NextPage } from 'next';
 import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 
 const Home: NextPage = () => {
 	const session = useSession();
