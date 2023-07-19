@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/jacobgad/teams/compare/v1.3.0...v1.3.1) (2023-07-19)
+
+
+### Bug Fixes
+
+* :bug: text field error overlap ([82329c2](https://github.com/jacobgad/teams/commit/82329c20ee0f2b8335a6d5fd9e5f65cec0b2dc9f))
+
 ## [1.3.0](https://github.com/jacobgad/teams/compare/v1.2.2...v1.3.0) (2023-07-11)
 
 
