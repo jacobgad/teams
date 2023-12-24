@@ -32,7 +32,7 @@ export default function UserMenu() {
 							? session.data?.user.image
 							: `https://avatars.dicebear.com/api/bottts/${session.data?.user?.email?.split(
 									'@'
-							  )[0]}.svg`
+								)[0]}.svg`
 					}
 					width={40}
 					height={40}
